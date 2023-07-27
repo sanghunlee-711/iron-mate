@@ -1,34 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 쇠질메이트 개발을 위한 저장소입니다.
 
-## Getting Started
+## 개요
 
-First, run the development server:
+매번 아이폰 노트에 중량운동 종목, 숫자 및 날짜 이 외에는 동일한 포맷으로 적는 것이 너무 귀찮음.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+쉽게 기재할 수 있는 UI를 제공해주고 해당 데이터를 액셀로 관리할 수 있게 만들어주면 별도의 DB나 서버가 필요없어지므로 간단하게 개발 가능할것으로 사료됨.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 기획
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**V1. 화면내에 기재하여 액셀로 데이터 저장시키고 데이터 받아서 다시 화면에 띄워주는 것 까지 만들어놓기**
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **구글 광고 넣고, GA달기, Sentry는.. 일단 제외, 방명록 및 제안사항 작성은 Disqus로 진행하기**
 
-## Learn More
+V2. 화면내 및 액셀에 주차당 부위별 횟수 기재해주고 UI에 나타내주기
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+V3. 유저가 겁나 많아질 경우 해볼 듯.. 회원 DB로 관리하면서 회원별 데이터 수집하기
