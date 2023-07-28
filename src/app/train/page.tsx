@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Yoyo = () => {
-  return <div>테이블 만들자~</div>;
+const Train = () => {
+  return <div>Train 페이지! 만들자~</div>;
 };
 
-export default Yoyo;
+export default Train;
