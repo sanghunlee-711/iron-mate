@@ -1,22 +1,24 @@
 'use client';
 
 import React from 'react';
-import Sidebar from '../../SideBar';
-import './index.css';
+import './BurgerButton.css';
 
-const BurgerButton = () => {
-  const [isToggle, setIsToggled] = React.useState<boolean>(false);
+interface IBurgerButtonPops {
+  isToggled: boolean;
+  handleToggle: (visibility: boolean) => void;
+}
 
+const BurgerButton: React.FC<IBurgerButtonPops> = ({
+  isToggled,
+  handleToggle,
+}) => {
   return (
-    <div className="hamburger-menu">
-      <button
-        className={`menu__btn ${isToggle ? 'toggle' : ''}`}
-        onClick={() => setIsToggled((prev) => !prev)}
-      >
-        <span></span>
-      </button>
-      <Sidebar handleClicked={(visibility) => setIsToggled(visibility)} />
-    </div>
+    <button
+      className={`menu__btn ${isToggled ? 'toggle' : ''}`}
+      onClick={() => handleToggle(!isToggled)}
+    >
+      <span></span>
+    </button>
   );
 };
 

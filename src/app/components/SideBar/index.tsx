@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 import React from 'react';
+import './SideBar.css';
 
 const SIDE_BAR_MAP = [
   {
@@ -15,24 +17,29 @@ const SIDE_BAR_MAP = [
 ];
 
 interface ISidebarProps {
+  isVisible: boolean;
   handleClicked: (visiblity: boolean) => void;
 }
 
-const Sidebar: React.FC<ISidebarProps> = ({ handleClicked }) => {
+const Sidebar: React.FC<ISidebarProps> = ({ handleClicked, isVisible }) => {
+  const pathname = usePathname();
+
   return (
-    <ul className="menu__box">
-      {SIDE_BAR_MAP.map(({ to, name }) => (
-        <li key={to}>
-          <Link
-            className="menu__item"
-            href={to}
-            onClick={() => handleClicked(false)}
-          >
-            {name}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <aside>
+      <ul className={`menu__box ${isVisible ? 'visible' : ''}`}>
+        {SIDE_BAR_MAP.map(({ to, name }) => (
+          <li key={to} className={to === pathname ? 'active' : ''}>
+            <Link
+              className="menu__item"
+              href={to}
+              onClick={() => handleClicked(false)}
+            >
+              {name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </aside>
   );
 };
 

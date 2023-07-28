@@ -1,0 +1,19 @@
+.header_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.header_container h1 {
+  font-size: 24px;
+}
+
+.main_container {
+  padding: 20px;
+  min-height: calc(100vh - 82px - 64px);
+}
+
+.footer_container {
+  padding: 20px;
+}
