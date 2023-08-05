@@ -1,4 +1,6 @@
-export const INFORMATION_FORMAT_MAP = [
+import { IInformationFormatMap } from '../train/types/table';
+
+export const INFORMATION_FORMAT_MAP: IInformationFormatMap[] = [
   {
     name: '타겟부위',
     id: 'target',
@@ -24,3 +26,13 @@ export const INFORMATION_FORMAT_MAP = [
     id: 'remark',
   },
 ];
+
+export const BASE_TABLE_FORM = {
+  target: '',
+  name: '',
+  weight: '',
+  id: '',
+  set: 0,
+  reps: 0,
+  remark: '',
+};

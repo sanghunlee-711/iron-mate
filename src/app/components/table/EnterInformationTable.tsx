@@ -19,6 +19,7 @@ const EnterInformationTable: React.FC<IFormProps> = ({
       <tbody>
         {INFORMATION_FORMAT_MAP.map(({ name, id }) => {
           const uniqueId = `${id}-${identifier}`;
+
           return (
             <tr key={uniqueId} className="border border-slate-300">
               <td className="border border-slate-300 text-center text-sm p-2">
@@ -26,7 +27,9 @@ const EnterInformationTable: React.FC<IFormProps> = ({
               </td>
               <td className="border border-slate-300 p-2">
                 <input
-                  {...register(uniqueId)}
+                  {...register(
+                    `trainTable.${Number(identifier)}.${id}` as const
+                  )}
                   type="text"
                   id={id}
                   className="w-full text-sm"
