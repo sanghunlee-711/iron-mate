@@ -20,7 +20,7 @@ const Timer: React.FC<ITimerProps> = ({
   targetTime = {
     hh: 0,
     mm: 0,
-    ss: 10,
+    ss: 60,
   },
 }) => {
   const { hh, mm, ss } = targetTime;
@@ -31,9 +31,11 @@ const Timer: React.FC<ITimerProps> = ({
   const INITAL_TIME_NUM = HH * 60 * 60 + MM * 60 + SS;
   const count = useRef(INITAL_TIME_NUM);
   const interval = useRef<NodeJS.Timer | undefined>(undefined);
-  const INITIAL_TIME_STATE = `${hh}:${mm}:${ss}`;
-  const [timer, setTimer] = useState(formatTime(INITIAL_TIME_STATE));
+
   const [isStart, setIsStart] = useState<boolean>(false);
+  const [hours, setHours] = useState(intToStringFormat(HH));
+  const [minutes, setMinutes] = useState(intToStringFormat(MM));
+  const [seconds, setSeconds] = useState(intToStringFormat(SS));
 
   const onStart = () => {
     initialCallback && initialCallback();
@@ -48,26 +50,46 @@ const Timer: React.FC<ITimerProps> = ({
         Math.floor((count.current % 3600) / 60),
         count.current % 60,
       ];
-      const formatedCurrTime =
-        intToStringFormat(h) +
-        ':' +
-        intToStringFormat(m) +
-        ':' +
-        intToStringFormat(s);
 
-      setTimer(formatedCurrTime);
+      setHours(intToStringFormat(h));
+      setMinutes(intToStringFormat(m));
+      setSeconds(intToStringFormat(s));
     }, 1000);
   };
 
   const onReset = () => {
     clearInterval(interval.current);
     count.current = INITAL_TIME_NUM;
-    setTimer(formatTime(INITIAL_TIME_STATE));
+
+    setHours(intToStringFormat(HH));
+    setMinutes(intToStringFormat(MM));
+    setSeconds(intToStringFormat(SS));
+
+    setIsStart(false);
   };
 
   const onStop = () => {
     setIsStart(false);
     clearInterval(interval.current);
+  };
+
+  const recalculateRefNumber = () => {
+    const newCurrentTime = +hours * 60 * 60 + +minutes * 60 + +seconds;
+    count.current = newCurrentTime;
+  };
+
+  const onChange = (
+    newNumber: number,
+    type: 'hours' | 'minutes' | 'seconds'
+  ) => {
+    if (isStart) return;
+
+    const formatedNumber = intToStringFormat(newNumber);
+    if (type === 'hours') setHours(formatedNumber);
+    if (type === 'minutes') setMinutes(formatedNumber);
+    if (type === 'seconds') setSeconds(formatedNumber);
+
+    recalculateRefNumber();
   };
 
   useEffect(() => {
@@ -77,13 +99,38 @@ const Timer: React.FC<ITimerProps> = ({
   useEffect(() => {
     if (count.current <= 0) {
       endCallback && endCallback();
+      onReset();
       clearInterval(interval.current);
     }
-  }, [timer]);
+  }, [seconds]);
 
   return (
     <div>
-      {timer}
+      <input
+        type="number"
+        value={hours}
+        onChange={(e) => onChange(+e.target.value, 'hours')}
+        min={0}
+        className="w-8 border border-slate-400	rounded-md	text-center	mr-1"
+      />
+      :
+      <input
+        min={0}
+        max={59}
+        type="number"
+        onChange={(e) => onChange(+e.target.value, 'minutes')}
+        value={minutes}
+        className="w-8 border border-slate-400	rounded-md	text-center	mx-1"
+      />
+      :
+      <input
+        min={0}
+        max={59}
+        type="number"
+        onChange={(e) => onChange(+e.target.value, 'seconds')}
+        value={seconds}
+        className="w-8 border border-slate-400	rounded-md	text-center	ml-1"
+      />
       {isStart ? (
         <button onClick={onStop} className="ml-2">
           <Image src="stop-icon.svg" alt="start" width={12} height={12} />
