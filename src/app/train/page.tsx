@@ -4,6 +4,7 @@ import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import Button from '../components/buttons/Button';
 import EnterInformationTable from '../components/table/EnterInformationTable';
+import Timer from '../components/Timer';
 import { BASE_TABLE_FORM } from '../constants/table';
 import { TableForm } from './types/table';
 
@@ -51,9 +52,11 @@ const Train = () => {
               className="border border-slate-300 p-3 rounded-md mb-3"
             >
               <div className="flex justify-between align-middle">
-                <div>60:00s</div>
+                <div>
+                  <Timer />
+                </div>
                 <div
-                  className="rounded-full	border inline-flex items-center justify-center w-8 h-8 text-purple-400 text-base font-semibold"
+                  className="rounded-full	border inline-flex items-center justify-center w-6 h-6"
                   onClick={() => removeListWithId(index)}
                 >
                   x
