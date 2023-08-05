@@ -6,6 +6,7 @@ import BurgerButton from '../buttons/BurgerButton';
 import Sidebar from '../SideBar';
 import './BasicLayout.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const [isToggle, setIsToggled] = React.useState<boolean>(false);
@@ -22,7 +23,11 @@ const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       </header>
       <Sidebar isVisible={isToggle} handleClicked={handleToggle} />
       <main className="main_container">{children}</main>
-      <footer className="footer_container">저작권내꺼</footer>
+      <footer className="footer_container text-purple-400">
+        A Project by{' '}
+        <Link href="https://www.cloud-sanghun.com/">Cloud Lee</Link> | From The
+        Folks
+      </footer>
     </>
   );
 };
