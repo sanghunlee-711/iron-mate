@@ -112,31 +112,36 @@ const Timer: React.FC<ITimerProps> = ({
         onChange={(e) => onChange(+e.target.value, 'hours')}
         min={0}
         className="w-8 border border-slate-400	rounded-md	text-center	mr-1"
+        aria-label="hours-input"
       />
       :
       <input
+        name="minutes"
         min={0}
         max={59}
         type="number"
         onChange={(e) => onChange(+e.target.value, 'minutes')}
         value={minutes}
         className="w-8 border border-slate-400	rounded-md	text-center	mx-1"
+        aria-label="minutes-input"
       />
       :
       <input
+        name="seconds"
         min={0}
         max={59}
         type="number"
         onChange={(e) => onChange(+e.target.value, 'seconds')}
         value={seconds}
         className="w-8 border border-slate-400	rounded-md	text-center	ml-1"
+        aria-label="seconds-input"
       />
       {isStart ? (
-        <button onClick={onStop} className="ml-2">
+        <button onClick={onStop} className="ml-2" name="stop">
           <Image src="stop-icon.svg" alt="start" width={12} height={12} />
         </button>
       ) : (
-        <button onClick={onStart} className="ml-2">
+        <button onClick={onStart} className="ml-2" name="start">
           <Image src="start-icon.svg" alt="start" width={12} height={12} />
         </button>
       )}
