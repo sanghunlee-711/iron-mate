@@ -19,8 +19,8 @@ const Timer: React.FC<ITimerProps> = ({
   endCallback,
   targetTime = {
     hh: 0,
-    mm: 0,
-    ss: 60,
+    mm: 1,
+    ss: 30,
   },
 }) => {
   const { hh, mm, ss } = targetTime;
@@ -85,6 +85,7 @@ const Timer: React.FC<ITimerProps> = ({
     if (isStart) return;
 
     const formatedNumber = intToStringFormat(newNumber);
+
     if (type === 'hours') setHours(formatedNumber);
     if (type === 'minutes') setMinutes(formatedNumber);
     if (type === 'seconds') setSeconds(formatedNumber);
@@ -137,11 +138,11 @@ const Timer: React.FC<ITimerProps> = ({
         aria-label="seconds-input"
       />
       {isStart ? (
-        <button onClick={onStop} className="ml-2" name="stop">
-          <Image src="stop-icon.svg" alt="start" width={12} height={12} />
+        <button onClick={onStop} className="ml-2" name="stop" role="button">
+          <Image src="stop-icon.svg" alt="stop" width={12} height={12} />
         </button>
       ) : (
-        <button onClick={onStart} className="ml-2" name="start">
+        <button onClick={onStart} className="ml-2" name="start" role="button">
           <Image src="start-icon.svg" alt="start" width={12} height={12} />
         </button>
       )}
