@@ -1,5 +1,5 @@
 import Timer from '../Timer';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { intToStringFormat } from '../../utils/format';
@@ -30,25 +30,24 @@ describe('<Timer />', () => {
 
     const $startBtn = screen.getByRole('button', { name: 'start' });
 
-    await waitFor(async () => {
-      await userEvent.click($startBtn);
-      const $stopBtn = screen.getByRole('button', { name: 'stop' });
-      expect($stopBtn).toBeInTheDocument();
-    });
+    await userEvent.click($startBtn);
 
-    await sleep(INITIAL_TIME.ss * 1000);
+    const $stopBtn = screen.getByRole('button', { name: 'stop' });
+    expect($stopBtn).toBeInTheDocument();
 
-    waitFor(() => {
-      expect($startBtn).toBeInTheDocument();
-    });
+    await act(async () => await sleep(INITIAL_TIME.ss * 1000));
+
+    expect($startBtn).toBeInTheDocument();
   });
 
   it('정해진 시간이 흘러간 뒤 초기시간으로 다시 변경이 되어야 함.', async () => {
     render(<Timer targetTime={INITIAL_TIME} />);
 
     const $startBtn = screen.getByRole('button', { name: 'start' });
+
     await userEvent.click($startBtn);
-    await sleep(INITIAL_TIME.ss);
+
+    await act(async () => await sleep(INITIAL_TIME.ss * 1000));
 
     const $hours = screen.getByLabelText('hours-input') as HTMLInputElement;
     const $minutes = screen.getByLabelText('minutes-input') as HTMLInputElement;
