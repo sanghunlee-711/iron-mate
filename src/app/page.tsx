@@ -1,10 +1,14 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import React from 'react';
+import Calendar from './components/Calendar';
+import SummaryInDateTable from './components/SummaryInDateTable';
+import SummaryInMonth from './components/SummaryInMonth';
 
 export default function History() {
   return (
     <main>
-      <h1 className="text-3xl font-bold underline">달력 만들자~</h1>
+      <Calendar />
+      <SummaryInDateTable />
+      <SummaryInMonth />
     </main>
   );
 }

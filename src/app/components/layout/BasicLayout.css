@@ -12,6 +12,8 @@
 .main_container {
   padding: 20px;
   min-height: calc(100vh - 82px - 64px);
+  max-width: 1024px;
+  margin: 0px auto;
 }
 
 .footer_container {
