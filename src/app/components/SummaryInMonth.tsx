@@ -15,10 +15,22 @@ const MOCK_SUMMARY_TABLE = [
   },
 ];
 
-const SummaryInMonth = () => {
+interface ISummaryInMonth {
+  date: Date;
+}
+
+const getMonthFromDate = (date: Date) => {
+  return date.getMonth();
+};
+
+const SummaryInMonth: React.FC<ISummaryInMonth> = ({ date }) => {
+  const dateFormatInEng = new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+  }).format(date);
+
   return (
     <>
-      <h1 className="font-bold my-3 text-lg">Summary of August</h1>
+      <h1 className="font-bold my-3 text-lg">Summary of {dateFormatInEng}</h1>
       <table className="table-auto border-collapse border-8 border-slate-300 w-full	rounded-md overflow-hidden mt-2 border-soild ring-1 ring-slate-200">
         <tbody>
           <tr className="border border-slate-300">

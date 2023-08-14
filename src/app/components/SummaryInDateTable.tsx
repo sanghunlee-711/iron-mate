@@ -15,10 +15,21 @@ const MOCK_SUMMARY_TABLE = [
   },
 ];
 
-const SummaryInDateTable = () => {
+interface ISummaryInDateTableProps {
+  date: Date;
+}
+
+const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({ date }) => {
   return (
     <>
-      <h1 className="font-bold my-3 text-lg">Summary of 08/14</h1>
+      <h1 className="font-bold my-3 text-lg">
+        Summary of{' '}
+        {new Intl.DateTimeFormat('ko-KR', {
+          year: '2-digit',
+          month: 'numeric',
+          day: 'numeric',
+        }).format(date)}
+      </h1>
       <table className="table-auto border-collapse border-8 border-slate-300 w-full	rounded-md overflow-hidden mt-2 border-soild ring-1 ring-slate-200">
         <tbody>
           <tr className="border border-slate-300">

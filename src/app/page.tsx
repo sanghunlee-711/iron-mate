@@ -1,14 +1,10 @@
 import React from 'react';
-import Calendar from './components/Calendar';
-import SummaryInDateTable from './components/SummaryInDateTable';
-import SummaryInMonth from './components/SummaryInMonth';
+import Home from './home';
 
 export default function History() {
   return (
     <main>
-      <Calendar />
-      <SummaryInDateTable />
-      <SummaryInMonth />
+      <Home />
     </main>
   );
 }

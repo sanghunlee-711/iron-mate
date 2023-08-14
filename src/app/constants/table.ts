@@ -10,7 +10,7 @@ export const INFORMATION_FORMAT_MAP: IInformationFormatMap[] = [
     id: 'name',
   },
   {
-    name: '중량',
+    name: '중량(kg)',
     id: 'weight',
   },
   {

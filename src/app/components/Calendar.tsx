@@ -45,15 +45,12 @@ const css = `
 
 `;
 
-const Calendar = () => {
-  const [selected, setSelected] = React.useState<Date>();
+interface ICalendarProps {
+  date: Date;
+  handleDate: (date: Date) => void;
+}
 
-  let footer = <p>Please pick a day.</p>;
-
-  if (selected) {
-    footer = <p>You picked {format(selected, 'PP')}.</p>;
-  }
-
+const Calendar: React.FC<ICalendarProps> = ({ date, handleDate }) => {
   const isExpanded = window && window.innerWidth >= 512;
 
   return (
@@ -62,8 +59,8 @@ const Calendar = () => {
       <DayPicker
         // cla
         mode="single"
-        selected={selected}
-        onSelect={setSelected}
+        selected={date}
+        onSelect={(day: Date | undefined) => handleDate(day || new Date())}
         // footer={footer}
         showOutsideDays
         fixedWeeks
