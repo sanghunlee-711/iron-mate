@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+
+.table-base {
+  @apply border border-slate-300 p-2 text-center;
+}

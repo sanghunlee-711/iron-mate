@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import React from 'react';
+import Home from './home';
 
 export default function History() {
   return (
     <main>
-      <h1 className="text-3xl font-bold underline">달력 만들자~</h1>
+      <Home />
     </main>
   );
 }

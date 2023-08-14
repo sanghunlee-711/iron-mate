@@ -23,7 +23,7 @@ const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       </header>
       <Sidebar isVisible={isToggle} handleClicked={handleToggle} />
       <main className="main_container">{children}</main>
-      <footer className="footer_container text-purple-400">
+      <footer className="footer_container text-base font-bold	">
         A Project by{' '}
         <Link href="https://www.cloud-sanghun.com/">Cloud Lee</Link> | From The
         Folks

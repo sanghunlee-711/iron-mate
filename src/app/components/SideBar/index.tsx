@@ -25,8 +25,9 @@ const Sidebar: React.FC<ISidebarProps> = ({ handleClicked, isVisible }) => {
   const pathname = usePathname();
 
   return (
-    <aside>
-      <ul className={`menu__box ${isVisible ? 'visible' : ''}`}>
+    <aside className={`menu__box ${isVisible ? 'visible' : ''}`}>
+      <h1 className="text-3xl	subpixel-antialiased italic p-6">Iron mate</h1>
+      <ul>
         {SIDE_BAR_MAP.map(({ to, name }) => (
           <li key={to} className={to === pathname ? 'active' : ''}>
             <Link
