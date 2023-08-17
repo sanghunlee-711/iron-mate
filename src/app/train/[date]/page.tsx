@@ -1,14 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import Button from '../components/buttons/Button';
-import EnterInformationTable from '../components/table/EnterInformationTable';
-import Timer from '../components/Timer';
-import { BASE_TABLE_FORM } from '../constants/table';
-import { TableForm } from './types/table';
+import Button from '../../components/buttons/Button';
+import EnterInformationTable from '../../components/table/EnterInformationTable';
+import Timer from '../../components/Timer';
+import { BASE_TABLE_FORM } from '../../constants/table';
+import { TableForm } from '../types/table';
+import { makeExcelWithData } from '../../utils/excel';
+import DateInput from '../../components/input/DateInput';
+import { useParams, useRouter } from 'next/navigation';
 
 const Train = () => {
+  const { date } = useParams();
+  const route = useRouter();
+  const [calendarDate, setCalendarDate] = useState<string>('');
   const { handleSubmit, register, control } = useForm<TableForm>({
     defaultValues: {
       trainTable: [BASE_TABLE_FORM],
@@ -34,15 +40,34 @@ const Train = () => {
 
   const onSubmit = (data: TableForm) => {
     console.log({ date: new Date(), excelData: data });
+    makeExcelWithData(data);
   };
+
+  const handleDate = (date: Date) => {
+    console.log('@?', date);
+  };
+
+  useEffect(() => {
+    const today = new Date();
+
+    if (date) return setCalendarDate(date as string);
+
+    route.push(
+      `/train/${new Intl.DateTimeFormat('ko-KR')
+        .format(today)
+        .replaceAll('/', '-')}`
+    );
+  }, [date]);
 
   return (
     <>
+      <DateInput handleDate={handleDate} date={date as string} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between">
           <Button type="submit" className="fixed">
             저장하기
           </Button>
+
           <div onClick={handleAddButton}>+</div>
         </div>
         <ul className="bg-white mt-3 flex flex-col justify-center align-middle">

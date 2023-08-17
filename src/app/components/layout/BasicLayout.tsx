@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/router';
 import React, { PropsWithChildren } from 'react';
 import BurgerButton from '../buttons/BurgerButton';
 import Sidebar from '../SideBar';
