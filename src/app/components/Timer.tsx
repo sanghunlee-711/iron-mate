@@ -112,7 +112,7 @@ const Timer: React.FC<ITimerProps> = ({
         value={hours}
         onChange={(e) => onChange(+e.target.value, 'hours')}
         min={0}
-        className="w-8 border border-slate-400	rounded-md	text-center	mr-1"
+        className="w-10 border border-slate-400	rounded-md	text-center	mr-1"
         aria-label="hours-input"
       />
       :
@@ -123,7 +123,7 @@ const Timer: React.FC<ITimerProps> = ({
         type="number"
         onChange={(e) => onChange(+e.target.value, 'minutes')}
         value={minutes}
-        className="w-8 border border-slate-400	rounded-md	text-center	mx-1"
+        className="w-10 border border-slate-400	rounded-md	text-center	mx-1"
         aria-label="minutes-input"
       />
       :
@@ -134,16 +134,28 @@ const Timer: React.FC<ITimerProps> = ({
         type="number"
         onChange={(e) => onChange(+e.target.value, 'seconds')}
         value={seconds}
-        className="w-8 border border-slate-400	rounded-md	text-center	ml-1"
+        className="w-10 border border-slate-400	rounded-md	text-center	ml-1"
         aria-label="seconds-input"
       />
       {isStart ? (
-        <button onClick={onStop} className="ml-2" name="stop" role="button">
-          <Image src="stop-icon.svg" alt="stop" width={12} height={12} />
+        <button
+          onClick={onStop}
+          className="ml-2"
+          name="stop"
+          role="button"
+          type="button"
+        >
+          <Image src="/stop-icon.svg" alt="stop" width={12} height={12} />
         </button>
       ) : (
-        <button onClick={onStart} className="ml-2" name="start" role="button">
-          <Image src="start-icon.svg" alt="start" width={12} height={12} />
+        <button
+          onClick={onStart}
+          className="ml-2"
+          name="start"
+          role="button"
+          type="button"
+        >
+          <Image src="/start-icon.svg" alt="start" width={12} height={12} />
         </button>
       )}
     </div>

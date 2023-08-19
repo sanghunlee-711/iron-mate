@@ -1,15 +1,10 @@
 'use client';
-import React from 'react';
 
-import { format } from 'date-fns';
+import React from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 
 const css = `
- 
-
-  
-
   .rdp {
     display: flex;
     align-items: center;
@@ -51,7 +46,7 @@ interface ICalendarProps {
 }
 
 const Calendar: React.FC<ICalendarProps> = ({ date, handleDate }) => {
-  const isExpanded = window && window.innerWidth >= 512;
+  const isExpanded = globalThis && globalThis?.innerWidth >= 512;
 
   return (
     <div className="max-w-full overflow-x-scroll">

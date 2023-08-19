@@ -1,4 +1,8 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import React from 'react';
+import { pushDateFormat } from '../utils/format';
 
 const MOCK_SUMMARY_TABLE = [
   {
@@ -20,16 +24,24 @@ interface ISummaryInDateTableProps {
 }
 
 const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({ date }) => {
+  const route = useRouter();
+  const formatedDate = new Intl.DateTimeFormat('ko-KR', {
+    year: '2-digit',
+    month: 'numeric',
+    day: 'numeric',
+  }).format(date);
+
   return (
     <>
-      <h1 className="font-bold my-3 text-lg">
-        Summary of{' '}
-        {new Intl.DateTimeFormat('ko-KR', {
-          year: '2-digit',
-          month: 'numeric',
-          day: 'numeric',
-        }).format(date)}
-      </h1>
+      <div className="flex align-middle justify-between">
+        <h1 className="font-bold my-3 text-lg">Summary of {formatedDate}</h1>
+        <button
+          onClick={() => route.push(`/train/${pushDateFormat(date)}`)}
+          type="button"
+        >
+          Detail
+        </button>
+      </div>
       <table className="table-auto border-collapse border-8 border-slate-300 w-full	rounded-md overflow-hidden mt-2 border-soild ring-1 ring-slate-200">
         <tbody>
           <tr className="border border-slate-300">
