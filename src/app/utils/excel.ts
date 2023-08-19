@@ -1,18 +1,29 @@
-import { TableForm } from '../train/types/table';
 const xlsx = require('xlsx');
 
-export const makeExcelWithData = (trainData: TableForm) => {
-  const date = new Date();
-  const formatDate = new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-  }).format(date);
+export class Excel<TData> {
+  data;
 
-  const file = xlsx.utils.book_new();
-  const trains = xlsx.utils.json_to_sheet(trainData.trainTable, {
-    headers: [],
-    skipHeader: true,
-  });
-  xlsx.utils.book_append_sheet(file, trains);
+  constructor(data: TData) {
+    this.data = data;
+  }
 
-  return xlsx.writeFile(file, `젠장-${formatDate}.xlsx`);
-};
+  makeFromData = () => {
+    const { data } = this;
+
+    const today = new Date();
+    const formatDate = new Intl.DateTimeFormat('en-US', {
+      month: 'numeric',
+      day: 'numeric',
+    }).format(today);
+
+    const file = xlsx.utils.book_new();
+    const trains = xlsx.utils.json_to_sheet(data, {
+      headers: [],
+      skipHeader: true,
+    });
+
+    xlsx.utils.book_append_sheet(file, trains);
+
+    return xlsx.writeFile(file, `iron-mate-${formatDate}.xlsx`);
+  };
+}

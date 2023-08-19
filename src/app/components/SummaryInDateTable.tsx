@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { pushDateFormat } from '../utils/format';
 
 const MOCK_SUMMARY_TABLE = [
   {
@@ -29,20 +30,13 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({ date }) => {
     month: 'numeric',
     day: 'numeric',
   }).format(date);
-  console.log(new Intl.DateTimeFormat('en-US').format(date));
+
   return (
     <>
       <div className="flex align-middle justify-between">
         <h1 className="font-bold my-3 text-lg">Summary of {formatedDate}</h1>
         <button
-          onClick={() =>
-            route.push(
-              `/train/${new Intl.DateTimeFormat('ko-KR')
-                .format(date)
-                .replaceAll(/\./gi, '-')
-                .replaceAll(/ /gi, '')}`
-            )
-          }
+          onClick={() => route.push(`/train/${pushDateFormat(date)}`)}
           type="button"
         >
           Detail

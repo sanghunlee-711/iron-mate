@@ -1,4 +1,4 @@
-interface ITrain {
+export interface ITrain {
   target: string;
   name: string;
   weight: string;

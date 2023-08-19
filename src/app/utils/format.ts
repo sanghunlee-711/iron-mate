@@ -16,3 +16,7 @@ export const formatTime = (time: string) => {
 
   return formatedTimed;
 };
+
+export const pushDateFormat = (date: Date) => {
+  return date.toISOString().split('T')[0];
+};

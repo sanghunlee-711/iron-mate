@@ -6,13 +6,14 @@ import Button from '../../components/buttons/Button';
 import EnterInformationTable from '../../components/table/EnterInformationTable';
 import Timer from '../../components/Timer';
 import { BASE_TABLE_FORM } from '../../constants/table';
-import { TableForm } from '../types/table';
-import { makeExcelWithData } from '../../utils/excel';
+import { ITrain, TableForm } from '../types/table';
+import { Excel } from '../../utils/excel';
 import DateInput from '../../components/input/DateInput';
 import { useParams, useRouter } from 'next/navigation';
+import { pushDateFormat } from '@/app/utils/format';
 
 const Train = () => {
-  const { date } = useParams();
+  const { date: dateParams } = useParams();
   const route = useRouter();
   const [calendarDate, setCalendarDate] = useState<string>('');
   const { handleSubmit, register, control } = useForm<TableForm>({
@@ -39,35 +40,33 @@ const Train = () => {
   };
 
   const onSubmit = (data: TableForm) => {
-    console.log({ date: new Date(), excelData: data });
-    makeExcelWithData(data);
+    const excel = new Excel<typeof data.trainTable>(data.trainTable);
+    excel.makeFromData();
   };
 
   const handleDate = (date: Date) => {
-    console.log('@?', date);
+    //*Todo: 이건 방식을 조금 더 고민해보자.
+    route.replace(`/train/${pushDateFormat(date)}`);
   };
 
   useEffect(() => {
     const today = new Date();
 
-    if (date) return setCalendarDate(date as string);
+    if (dateParams) return setCalendarDate(dateParams as string);
 
-    route.push(
-      `/train/${new Intl.DateTimeFormat('ko-KR')
-        .format(today)
-        .replaceAll('/', '-')}`
-    );
-  }, [date]);
+    route.replace(`/train/${pushDateFormat(today)}`);
+  }, [dateParams]);
 
   return (
     <>
-      <DateInput handleDate={handleDate} date={date as string} />
+      <div className="flex justify-between align-middle">
+        <DateInput handleDate={handleDate} date={calendarDate} />
+        <Button type="submit" className="fixed">
+          저장하기
+        </Button>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex justify-between">
-          <Button type="submit" className="fixed">
-            저장하기
-          </Button>
-
+        <div className="flex justify-end">
           <div onClick={handleAddButton}>+</div>
         </div>
         <ul className="bg-white mt-3 flex flex-col justify-center align-middle">
@@ -78,7 +77,11 @@ const Train = () => {
             >
               <div className="flex justify-between align-middle">
                 <div>
-                  <Timer />
+                  <Timer
+                    endCallback={() =>
+                      console.log('add sets when finishing every runtime?')
+                    }
+                  />
                 </div>
                 <div
                   className="rounded-full	border inline-flex items-center justify-center w-6 h-6"
