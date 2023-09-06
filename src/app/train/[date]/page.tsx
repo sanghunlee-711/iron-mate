@@ -40,7 +40,12 @@ const Train = () => {
   };
 
   const onSubmit = (data: TableForm) => {
-    const excel = new Excel<typeof data.trainTable>(data.trainTable);
+    const datas = [...data?.trainTable];
+
+    //액셀에는 Id가 필요없으므로..
+    datas.forEach((el) => delete el['id']);
+
+    const excel = new Excel<ITrain>(datas);
     excel.makeFromData();
   };
 
@@ -57,15 +62,20 @@ const Train = () => {
     route.replace(`/train/${pushDateFormat(today)}`);
   }, [dateParams]);
 
+  useEffect(() => {
+    // 여기 만약 액셀 데이터가 업로드 되어 있으면
+    // 파싱을 해서 같은 종목끼리 묶인부분을 다시 분해해서 화면에 보여줘야 함.
+  }, []);
+
   return (
     <>
-      <div className="flex justify-between align-middle">
-        <DateInput handleDate={handleDate} date={calendarDate} />
-        <Button type="submit" className="fixed">
-          저장하기
-        </Button>
-      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex justify-between align-middle">
+          <DateInput handleDate={handleDate} date={calendarDate} />
+          <Button type="submit" className="fixed">
+            저장하기
+          </Button>
+        </div>
         <div className="flex justify-end">
           <div onClick={handleAddButton}>+</div>
         </div>

@@ -2,7 +2,7 @@ export interface ITrain {
   target: string;
   name: string;
   weight: string;
-  id: string;
+  id?: string;
   set: number;
   reps: number;
   remark: string;

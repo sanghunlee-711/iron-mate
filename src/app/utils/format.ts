@@ -18,5 +18,10 @@ export const formatTime = (time: string) => {
 };
 
 export const pushDateFormat = (date: Date) => {
-  return date.toISOString().split('T')[0];
+  const offset = new Date().getTimezoneOffset() * 60000;
+
+  return new Date(date.getTime() - offset)
+    .toISOString()
+    .replace('Z', '')
+    .split('T')[0];
 };

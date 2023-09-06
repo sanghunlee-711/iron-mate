@@ -3,13 +3,21 @@ const xlsx = require('xlsx');
 export class Excel<TData> {
   data;
 
-  constructor(data: TData) {
+  constructor(data: TData[]) {
     this.data = data;
   }
 
-  makeFromData = () => {
-    const { data } = this;
+  formatData = <TFormatData>(
+    unFormeddata: TFormatData[],
+    header?: string[]
+  ) => {
+    console.log(unFormeddata, header);
+    return [header, ...unFormeddata];
+  };
 
+  readFromFile = (file: any) => {};
+
+  makeFromData = () => {
     const today = new Date();
     const formatDate = new Intl.DateTimeFormat('en-US', {
       month: 'numeric',
@@ -17,9 +25,9 @@ export class Excel<TData> {
     }).format(today);
 
     const file = xlsx.utils.book_new();
-    const trains = xlsx.utils.json_to_sheet(data, {
-      headers: [],
-      skipHeader: true,
+    const trains = xlsx.utils.json_to_sheet(this.data, {
+      // headers: this.headers,
+      skipHeader: false,
     });
 
     xlsx.utils.book_append_sheet(file, trains);
