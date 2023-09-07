@@ -46,7 +46,6 @@ export class Excel {
         // headers: this.headers,
         skipHeader: false,
       });
-
       xlsx.utils.book_append_sheet(file, ws, el.date);
     });
 
