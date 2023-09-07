@@ -4,7 +4,11 @@ import { INFORMATION_FORMAT_MAP } from '@/app/constants/table';
 import { TableForm } from '@/app/train/types/table';
 import { unique } from 'next/dist/build/utils';
 import React from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import {
+  UseFormRegister,
+  UseFormSetError,
+  UseFormSetValue,
+} from 'react-hook-form';
 
 interface IFormProps {
   register: UseFormRegister<TableForm>;

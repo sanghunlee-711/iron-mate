@@ -16,13 +16,14 @@ const Train = () => {
   const { date: dateParams } = useParams();
   const route = useRouter();
   const [calendarDate, setCalendarDate] = useState<string>('');
-  const { handleSubmit, register, control } = useForm<TableForm>({
-    defaultValues: {
-      trainTable: [BASE_TABLE_FORM],
-    },
-  });
+  const { handleSubmit, register, control, setValue, getValues } =
+    useForm<TableForm>({
+      defaultValues: {
+        trainTable: [BASE_TABLE_FORM],
+      },
+    });
 
-  const { fields, append, prepend, remove, swap } = useFieldArray({
+  const { fields, append, prepend, remove, swap, update } = useFieldArray({
     control,
     name: 'trainTable',
   });
@@ -80,32 +81,38 @@ const Train = () => {
           <div onClick={handleAddButton}>+</div>
         </div>
         <ul className="bg-white mt-3 flex flex-col justify-center align-middle">
-          {fields.map(({ id }, index) => (
-            <li
-              key={id}
-              className="border border-slate-300 p-3 rounded-md mb-3"
-            >
-              <div className="flex justify-between align-middle">
-                <div>
-                  <Timer
-                    endCallback={() =>
-                      console.log('add sets when finishing every runtime?')
-                    }
-                  />
+          {fields.map(({ id }, index) => {
+            const uniqueId = `trainTable.${Number(index)}.set` as const;
+            const currentSet = getValues(uniqueId) as number;
+            console.log(uniqueId, currentSet);
+
+            return (
+              <li
+                key={id}
+                className="border border-slate-300 p-3 rounded-md mb-3"
+              >
+                <div className="flex justify-between align-middle">
+                  <div>
+                    <Timer
+                      endCallback={() =>
+                        setValue(uniqueId, (currentSet + 1) as never)
+                      }
+                    />
+                  </div>
+                  <div
+                    className="rounded-full	border inline-flex items-center justify-center w-6 h-6"
+                    onClick={() => removeListWithId(index)}
+                  >
+                    x
+                  </div>
                 </div>
-                <div
-                  className="rounded-full	border inline-flex items-center justify-center w-6 h-6"
-                  onClick={() => removeListWithId(index)}
-                >
-                  x
-                </div>
-              </div>
-              <EnterInformationTable
-                register={register}
-                identifier={index + ''}
-              />
-            </li>
-          ))}
+                <EnterInformationTable
+                  register={register}
+                  identifier={index + ''}
+                />
+              </li>
+            );
+          })}
         </ul>
       </form>
     </>
