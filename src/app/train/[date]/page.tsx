@@ -42,12 +42,20 @@ const Train = () => {
 
   const onSubmit = (data: TableForm) => {
     const datas = [...data?.trainTable];
+    //여기서는 localStorage에 해당 데이터를 저장해놓는 역할을 해야 함.
 
     //액셀에는 Id가 필요없으므로..
     datas.forEach((el) => delete el['id']);
 
     const excel = new Excel<ITrain>(datas);
     excel.makeFromData();
+  };
+
+  const updateSets = (itemIndex: number) => {
+    const uniqueId = `trainTable.${Number(itemIndex)}.set` as const;
+    const currentSet = getValues(uniqueId) as string;
+
+    setValue(uniqueId, (Number(currentSet) + 1) as never);
   };
 
   const handleDate = (date: Date) => {
@@ -82,10 +90,6 @@ const Train = () => {
         </div>
         <ul className="bg-white mt-3 flex flex-col justify-center align-middle">
           {fields.map(({ id }, index) => {
-            const uniqueId = `trainTable.${Number(index)}.set` as const;
-            const currentSet = getValues(uniqueId) as number;
-            console.log(uniqueId, currentSet);
-
             return (
               <li
                 key={id}
@@ -94,9 +98,8 @@ const Train = () => {
                 <div className="flex justify-between align-middle">
                   <div>
                     <Timer
-                      endCallback={() =>
-                        setValue(uniqueId, (currentSet + 1) as never)
-                      }
+                      startCallback={() => console.log('광고 시작')}
+                      endCallback={() => updateSets(index)}
                     />
                   </div>
                   <div

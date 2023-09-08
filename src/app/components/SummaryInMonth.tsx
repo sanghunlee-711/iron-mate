@@ -1,4 +1,5 @@
 import React from 'react';
+import { TTrainData } from '../train/types/table';
 
 const MOCK_SUMMARY_TABLE = [
   {
@@ -17,6 +18,7 @@ const MOCK_SUMMARY_TABLE = [
 
 interface ISummaryInMonth {
   date: Date;
+  data: TTrainData[];
 }
 
 const getMonthFromDate = (date: Date) => {

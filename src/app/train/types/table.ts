@@ -16,3 +16,5 @@ export interface IInformationFormatMap {
   name: string;
   id: keyof ITrain;
 }
+
+export type TTrainData = { date: string; data: ITrain[] };

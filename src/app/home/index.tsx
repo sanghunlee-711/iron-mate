@@ -4,32 +4,25 @@ import React from 'react';
 import Calendar from '../components/Calendar';
 import SummaryInDateTable from '../components/SummaryInDateTable';
 import SummaryInMonth from '../components/SummaryInMonth';
-import { Excel } from '../utils/excel';
+import { TTrainData } from '../train/types/table';
+import DataStorage from '../utils/storage';
 
 const Home = () => {
   const [date, setDate] = React.useState<Date>(new Date());
-
-  const uploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-
-    if (!files) return alert('파일이 없어요');
-
-    const excel = new Excel();
-    const rawData = excel.readFromFile(files[0]);
-  };
+  const dataStorage = new DataStorage();
+  const data = dataStorage.get('iron-mate-data') as TTrainData[];
 
   const handleDate = (newDate: Date) => {
     setDate(newDate);
   };
 
+  console.log(data);
+
   return (
     <>
-      <label htmlFor="uploadExcel">
-        <input type="file" id="uploadExcel" onChange={(e) => uploadFile(e)} />
-      </label>
-      <Calendar date={date} handleDate={handleDate} />
-      <SummaryInDateTable date={date} />
-      <SummaryInMonth date={date} />
+      <Calendar date={date} handleDate={handleDate} data={data} />
+      <SummaryInDateTable date={date} data={data} />
+      <SummaryInMonth date={date} data={data} />
     </>
   );
 };

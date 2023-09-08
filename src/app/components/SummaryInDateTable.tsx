@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import { ITrain, TTrainData } from '../train/types/table';
 import { pushDateFormat } from '../utils/format';
 
 const MOCK_SUMMARY_TABLE = [
@@ -21,9 +22,13 @@ const MOCK_SUMMARY_TABLE = [
 
 interface ISummaryInDateTableProps {
   date: Date;
+  data: TTrainData[];
 }
 
-const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({ date }) => {
+const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
+  date,
+  data,
+}) => {
   const route = useRouter();
   const formatedDate = new Intl.DateTimeFormat('ko-KR', {
     year: '2-digit',
@@ -31,9 +36,35 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({ date }) => {
     day: 'numeric',
   }).format(date);
 
+  const todayData = data.filter((el) => {
+    const elementDate = new Date(el.date);
+    const currentDate = new Date(date);
+    const [elYear, elMonth, elDate] = [
+      elementDate.getFullYear(),
+      elementDate.getMonth(),
+      elementDate.getDate(),
+    ];
+    const [currYear, currMonth, currDate] = [
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      currentDate.getDate(),
+    ];
+
+    const isSameDay =
+      elYear === currYear && elMonth === currMonth && elDate === currDate;
+    return isSameDay;
+  });
+
+  const accumulateData = (trainData: ITrain[]) => {
+    return trainData.reduce((acc, curr) => {
+      return acc;
+      //그럼 여기서 같은 target끼리 모으면서 .. time이랑 sets를 조합해줘야 함 ㅋㅋㅋㅋ..
+    }, [] as { target: string; sets: number; time: number }[]);
+  };
+
   return (
     <>
-      <div className="flex align-middle justify-between">
+      <div className="flex align-middle justify-between ">
         <h1 className="font-bold my-3 text-lg">Summary of {formatedDate}</h1>
         <button
           onClick={() => route.push(`/train/${pushDateFormat(date)}`)}
@@ -43,21 +74,25 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({ date }) => {
         </button>
       </div>
       <table className="table-auto border-collapse border-8 border-slate-300 w-full	rounded-md overflow-hidden mt-2 border-soild ring-1 ring-slate-200">
-        <tbody>
+        <thead>
           <tr className="border border-slate-300">
             <th className="table-base">Exercise</th>
             <th className="table-base">Sets</th>
             <th className="table-base">Remark</th>
           </tr>
-          {MOCK_SUMMARY_TABLE.map(({ id, exserciseName, sets, remark }) => {
-            return (
-              <tr key={id + exserciseName} className="border border-slate-300">
-                <td className="table-base">{exserciseName}</td>
-                <td className="table-base">{sets}</td>
-                <td className="table-base">{remark}</td>
-              </tr>
-            );
-          })}
+        </thead>
+        <tbody className="max-h-28 overflow-y-scroll">
+          {todayData[0]?.data?.map(
+            ({ target, name, weight, id, set, reps, remark }) => {
+              return (
+                <tr key={id + name} className="border border-slate-300">
+                  <td className="table-base">{name}</td>
+                  <td className="table-base">{set}</td>
+                  <td className="table-base">{remark}</td>
+                </tr>
+              );
+            }
+          )}
         </tbody>
       </table>
     </>

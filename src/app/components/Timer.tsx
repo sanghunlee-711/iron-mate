@@ -4,7 +4,7 @@ import { formatTime, intToStringFormat } from '../utils/format';
 
 interface ITimerProps {
   isInitialStart?: boolean;
-  initialCallback?: () => void;
+  startCallback?: () => void;
   endCallback?: () => void;
   targetTime?: {
     hh: number;
@@ -15,7 +15,7 @@ interface ITimerProps {
 
 const Timer: React.FC<ITimerProps> = ({
   isInitialStart = false,
-  initialCallback,
+  startCallback,
   endCallback,
   targetTime = {
     hh: 0,
@@ -38,7 +38,7 @@ const Timer: React.FC<ITimerProps> = ({
   const [seconds, setSeconds] = useState(intToStringFormat(SS));
 
   const onStart = () => {
-    initialCallback && initialCallback();
+    startCallback && startCallback();
 
     setIsStart(true);
 
@@ -75,7 +75,7 @@ const Timer: React.FC<ITimerProps> = ({
 
   const recalculateRefNumber = () => {
     const [h, m, s] = [+hours * 60 * 60, +minutes * 60, +seconds];
-    const calculatedToSeconds = h + m + s;
+    const calculatedToSeconds = Math.abs(h + m + s);
 
     count.current = calculatedToSeconds;
   };
@@ -99,9 +99,9 @@ const Timer: React.FC<ITimerProps> = ({
 
   useEffect(() => {
     if (count.current < 0) {
-      endCallback && endCallback();
       onReset();
       clearInterval(interval.current);
+      if (endCallback) endCallback();
     }
     recalculateRefNumber();
   }, [hours, minutes, seconds]);
