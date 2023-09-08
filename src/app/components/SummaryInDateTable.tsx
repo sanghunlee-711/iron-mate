@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { ITrain, TTrainData } from '../train/types/table';
 import { pushDateFormat } from '../utils/format';
+import { extractSameTarget } from '../utils/summary';
 
 const MOCK_SUMMARY_TABLE = [
   {
@@ -22,7 +23,7 @@ const MOCK_SUMMARY_TABLE = [
 
 interface ISummaryInDateTableProps {
   date: Date;
-  data: TTrainData[];
+  data?: TTrainData[];
 }
 
 const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
@@ -36,7 +37,7 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
     day: 'numeric',
   }).format(date);
 
-  const todayData = data.filter((el) => {
+  const todayData = data?.filter((el) => {
     const elementDate = new Date(el.date);
     const currentDate = new Date(date);
     const [elYear, elMonth, elDate] = [
@@ -55,12 +56,9 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
     return isSameDay;
   });
 
-  const accumulateData = (trainData: ITrain[]) => {
-    return trainData.reduce((acc, curr) => {
-      return acc;
-      //그럼 여기서 같은 target끼리 모으면서 .. time이랑 sets를 조합해줘야 함 ㅋㅋㅋㅋ..
-    }, [] as { target: string; sets: number; time: number }[]);
-  };
+  const summaryData = extractSameTarget(
+    todayData?.flatMap((el) => el.data) || []
+  );
 
   return (
     <>
@@ -82,17 +80,15 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
           </tr>
         </thead>
         <tbody className="max-h-28 overflow-y-scroll">
-          {todayData[0]?.data?.map(
-            ({ target, name, weight, id, set, reps, remark }) => {
-              return (
-                <tr key={id + name} className="border border-slate-300">
-                  <td className="table-base">{name}</td>
-                  <td className="table-base">{set}</td>
-                  <td className="table-base">{remark}</td>
-                </tr>
-              );
-            }
-          )}
+          {summaryData?.map(({ target, reps, sets }) => {
+            return (
+              <tr key={target} className="border border-slate-300">
+                <td className="table-base">{target}</td>
+                <td className="table-base">{sets}</td>
+                <td className="table-base">{reps}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </>

@@ -42,14 +42,14 @@ const css = `
 `;
 
 interface ICalendarProps {
-  data: TTrainData[];
+  data?: TTrainData[];
   date: Date;
   handleDate: (date: Date) => void;
 }
 
 const Calendar: React.FC<ICalendarProps> = ({ data, date, handleDate }) => {
   const isExpanded = globalThis && globalThis?.innerWidth >= 512;
-  const checkedDate = data.map((el) => new Date(el.date));
+  const checkedDate = data?.map((el) => new Date(el.date));
   const checkedStyle = { color: 'red' };
 
   return (
@@ -60,7 +60,7 @@ const Calendar: React.FC<ICalendarProps> = ({ data, date, handleDate }) => {
         mode="single"
         selected={date}
         onSelect={(day: Date | undefined) => handleDate(day || new Date())}
-        modifiers={{ checked: checkedDate }}
+        modifiers={{ checked: checkedDate || [] }}
         modifiersStyles={{ checked: checkedStyle }}
         // footer={footer}
         showOutsideDays

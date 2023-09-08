@@ -7,7 +7,6 @@ import EnterInformationTable from '../../components/table/EnterInformationTable'
 import Timer from '../../components/Timer';
 import { BASE_TABLE_FORM } from '../../constants/table';
 import { ITrain, TableForm, TTrainData } from '../types/table';
-import { Excel } from '../../utils/excel';
 import DateInput from '../../components/input/DateInput';
 import { useParams, useRouter } from 'next/navigation';
 import { formatSaveDate, pushDateFormat } from '@/app/utils/format';
@@ -43,26 +42,40 @@ const Train = () => {
     remove(index);
   };
 
-  const onSubmit = (data: TableForm) => {
-    const datas = [...data?.trainTable];
-    //여기서는 localStorage에 해당 데이터를 저장해놓는 역할을 해야 함.
+  const onSave = (data: TableForm) => {
+    const currentCards = [...data?.trainTable];
 
-    datas.forEach((el) => delete el['id']);
+    currentCards.forEach((el) => delete el['id']);
 
-    const originData = dataStorage.get('iron-mate-data');
+    const originData = dataStorage.get('iron-mate-data') as TTrainData[];
 
-    if (!originData) return dataStorage.set('iron-mate-data', datas);
+    if (!originData) return dataStorage.set('iron-mate-data', currentCards);
 
-    //여기서 날짜가 동일하면 바꿔치기 해줘야 함.
-    const updateData = [
-      ...originData,
-      { date: formatSaveDate(new Date(dateParams as string)), data: datas },
-    ];
+    let isExistDayBefore = false;
+    const updateData = originData.reduce((acc, curr, currIdx, originArr) => {
+      const isTodayData = curr.date === (dateParams as string);
+      //아래 변수는 정렬하면 없앨 수 있을 듯.
+      const isIncludeTodayData = acc.map((el) => el.date).includes(curr.date);
 
-    return dataStorage.set('iron-mate-data', updateData);
+      if (isTodayData && !isIncludeTodayData) {
+        isExistDayBefore = true;
+        acc.splice(currIdx, 1);
+        acc.push({ date: curr.date, data: currentCards });
+        return acc;
+      }
+
+      acc.push(curr);
+      return acc;
+    }, [] as TTrainData[]);
+
+    const saveData = isExistDayBefore
+      ? updateData
+      : [...updateData, { date: dateParams, data: currentCards }];
+
+    return dataStorage.set('iron-mate-data', saveData);
   };
 
-  const updateSets = (itemIndex: number) => {
+  const updateWorkoutSets = (itemIndex: number) => {
     const uniqueId = `trainTable.${Number(itemIndex)}.set` as const;
     const currentSet = getValues(uniqueId) as string;
 
@@ -74,6 +87,16 @@ const Train = () => {
     route.replace(`/train/${pushDateFormat(date)}`);
   };
 
+  const updateInitialData = () => {
+    const storageData = dataStorage.get('iron-mate-data') as TTrainData[];
+
+    if (!storageData) return;
+
+    const filterData = storageData?.filter((el) => dateParams === el.date)?.[0];
+
+    filterData?.data?.forEach((el, index) => update(index, el));
+  };
+
   useEffect(() => {
     const today = new Date();
 
@@ -83,18 +106,12 @@ const Train = () => {
   }, [dateParams]);
 
   useEffect(() => {
-    const storageData = dataStorage.get('iron-mate-data') as TTrainData[];
-    if (!storageData) return;
-
-    const data = storageData.filter((el) => dateParams === el.date)?.[0];
-    data?.data?.forEach((el, index) => update(index, el));
-    // 여기 만약 액셀 데이터가 업로드 되어 있으면
-    // 파싱을 해서 같은 종목끼리 묶인부분을 다시 분해해서 화면에 보여줘야 함.
+    updateInitialData();
   }, []);
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSave)}>
         <div className="flex justify-between align-middle">
           <DateInput handleDate={handleDate} date={calendarDate} />
           <Button type="submit" className="fixed">
@@ -115,7 +132,7 @@ const Train = () => {
                   <div>
                     <Timer
                       startCallback={() => console.log('광고 시작')}
-                      endCallback={() => updateSets(index)}
+                      endCallback={() => updateWorkoutSets(index)}
                     />
                   </div>
                   <div
