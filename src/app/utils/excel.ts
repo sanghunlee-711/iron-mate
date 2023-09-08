@@ -6,15 +6,6 @@ const xlsx = require('xlsx');
 export class Excel {
   constructor() {}
 
-  formatData = <TFormatData>(
-    unFormeddata: TFormatData[],
-    header?: string[]
-  ) => {
-    return [header, ...unFormeddata];
-  };
-
-  formatSheetName = () => {};
-
   readFromFile = async (file: File) => {
     const workbook = xlsx.read(await file.arrayBuffer());
     const worksheets = workbook.SheetNames.map(
