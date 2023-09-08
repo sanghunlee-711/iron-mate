@@ -2,21 +2,6 @@ import React from 'react';
 import { TTrainData } from '../train/types/table';
 import { summarizeInMonth } from '../utils/summary';
 
-const MOCK_SUMMARY_TABLE = [
-  {
-    id: 1,
-    parts: '가슴',
-    sets: 24,
-    reps: 10 * 3 * 3,
-  },
-  {
-    id: 2,
-    parts: '등',
-    sets: 20,
-    reps: 12 * 3 * 4,
-  },
-];
-
 interface ISummaryInMonth {
   date: Date;
   data?: TTrainData[];
@@ -37,14 +22,14 @@ const SummaryInMonth: React.FC<ISummaryInMonth> = ({ date, data }) => {
           <tr className="border border-slate-300">
             <th className="table-base">Parts</th>
             <th className="table-base">Sets</th>
-            <th className="table-base">Reps(Sum of Sets * reps)</th>
+            <th className="table-base">Volumes(Sum of Sets * reps)</th>
           </tr>
-          {summarizeData.map(({ target, sets, reps }) => {
+          {summarizeData.map(({ target, sets, volumes }) => {
             return (
               <tr key={target} className="border border-slate-300">
                 <td className="table-base">{target}</td>
                 <td className="table-base">{sets}</td>
-                <td className="table-base">{reps}</td>
+                <td className="table-base">{volumes}</td>
               </tr>
             );
           })}

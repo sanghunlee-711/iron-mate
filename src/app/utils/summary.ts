@@ -24,14 +24,15 @@ export const extractSameTarget = (trainData: ITrain[]) => {
         targetMap.set(curr.target, {
           target: curr.target,
           sets: Number(value?.sets) + Number(curr.set),
-          reps: Number(value?.sets) * Number(value?.reps) + Number(curr.reps),
+          volumes:
+            Number(value?.volumes) + Number(curr.reps) * Number(curr.set),
         });
       }
     } else {
       targetMap.set(curr.target, {
         target: curr.target,
         sets: Number(curr.set),
-        reps: Number(curr.reps),
+        volumes: Number(curr.reps) * Number(curr.set),
       });
     }
 
@@ -42,7 +43,7 @@ export const extractSameTarget = (trainData: ITrain[]) => {
   return Array.from(summarizeData.values());
 };
 
-type TSummarizeWithTarget = { target: string; sets: number; reps: number };
+type TSummarizeWithTarget = { target: string; sets: number; volumes: number };
 
 export const summarizeInMonth = (data: TTrainData[], pickDate: Date) => {
   //1. 동일 월 데이터를 모두 모아야함.
@@ -50,5 +51,6 @@ export const summarizeInMonth = (data: TTrainData[], pickDate: Date) => {
   const sameMonthData = extractSameMonthData(data, pickDate);
 
   //2. 동일 부위별로만 데이터 모아야 함.
+
   return extractSameTarget(sameMonthData);
 };

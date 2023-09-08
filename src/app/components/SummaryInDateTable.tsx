@@ -61,16 +61,16 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
           <tr className="border border-slate-300">
             <th className="table-base">Exercise</th>
             <th className="table-base">Sets</th>
-            <th className="table-base">Reps</th>
+            <th className="table-base">Volumes</th>
           </tr>
         </thead>
         <tbody className="max-h-28 overflow-y-scroll">
-          {summaryData?.map(({ target, reps, sets }) => {
+          {summaryData?.map(({ target, volumes, sets }) => {
             return (
               <tr key={target} className="border border-slate-300">
                 <td className="table-base">{target}</td>
                 <td className="table-base">{sets}</td>
-                <td className="table-base">{reps}</td>
+                <td className="table-base">{volumes}</td>
               </tr>
             );
           })}
