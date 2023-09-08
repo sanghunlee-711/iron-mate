@@ -6,11 +6,12 @@ import Button from '../../components/buttons/Button';
 import EnterInformationTable from '../../components/table/EnterInformationTable';
 import Timer from '../../components/Timer';
 import { BASE_TABLE_FORM } from '../../constants/table';
-import { ITrain, TableForm } from '../types/table';
+import { ITrain, TableForm, TTrainData } from '../types/table';
 import { Excel } from '../../utils/excel';
 import DateInput from '../../components/input/DateInput';
 import { useParams, useRouter } from 'next/navigation';
-import { pushDateFormat } from '@/app/utils/format';
+import { formatSaveDate, pushDateFormat } from '@/app/utils/format';
+import DataStorage from '@/app/utils/storage';
 
 const Train = () => {
   const { date: dateParams } = useParams();
@@ -28,6 +29,8 @@ const Train = () => {
     name: 'trainTable',
   });
 
+  const dataStorage = new DataStorage();
+
   const handleAddButton = () => {
     append(BASE_TABLE_FORM);
   };
@@ -44,11 +47,19 @@ const Train = () => {
     const datas = [...data?.trainTable];
     //여기서는 localStorage에 해당 데이터를 저장해놓는 역할을 해야 함.
 
-    //액셀에는 Id가 필요없으므로..
     datas.forEach((el) => delete el['id']);
 
-    const excel = new Excel<ITrain>(datas);
-    excel.makeFromData();
+    const originData = dataStorage.get('iron-mate-data');
+
+    if (!originData) return dataStorage.set('iron-mate-data', datas);
+
+    //여기서 날짜가 동일하면 바꿔치기 해줘야 함.
+    const updateData = [
+      ...originData,
+      { date: formatSaveDate(new Date(dateParams as string)), data: datas },
+    ];
+
+    return dataStorage.set('iron-mate-data', updateData);
   };
 
   const updateSets = (itemIndex: number) => {
@@ -72,6 +83,11 @@ const Train = () => {
   }, [dateParams]);
 
   useEffect(() => {
+    const storageData = dataStorage.get('iron-mate-data') as TTrainData[];
+    if (!storageData) return;
+
+    const data = storageData.filter((el) => dateParams === el.date)?.[0];
+    data?.data?.forEach((el, index) => update(index, el));
     // 여기 만약 액셀 데이터가 업로드 되어 있으면
     // 파싱을 해서 같은 종목끼리 묶인부분을 다시 분해해서 화면에 보여줘야 함.
   }, []);
