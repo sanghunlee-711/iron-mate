@@ -25,3 +25,13 @@ export const pushDateFormat = (date: Date) => {
     .replace('Z', '')
     .split('T')[0];
 };
+
+export const formatSaveDate = (date: Date = new Date()) => {
+  const [year, month, day] = [
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(),
+  ];
+
+  return `${year}-${intToStringFormat(month)}-${intToStringFormat(day)}`;
+};

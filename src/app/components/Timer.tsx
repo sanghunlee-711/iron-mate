@@ -4,7 +4,7 @@ import { formatTime, intToStringFormat } from '../utils/format';
 
 interface ITimerProps {
   isInitialStart?: boolean;
-  initialCallback?: () => void;
+  startCallback?: () => void;
   endCallback?: () => void;
   targetTime?: {
     hh: number;
@@ -15,7 +15,7 @@ interface ITimerProps {
 
 const Timer: React.FC<ITimerProps> = ({
   isInitialStart = false,
-  initialCallback,
+  startCallback,
   endCallback,
   targetTime = {
     hh: 0,
@@ -38,17 +38,18 @@ const Timer: React.FC<ITimerProps> = ({
   const [seconds, setSeconds] = useState(intToStringFormat(SS));
 
   const onStart = () => {
-    initialCallback && initialCallback();
+    startCallback && startCallback();
 
     setIsStart(true);
 
     interval.current = setInterval(() => {
       count.current -= 1;
+      const currentValue = count.current;
 
       const [h, m, s] = [
-        Math.floor(count.current / 3600),
-        Math.floor((count.current % 3600) / 60),
-        count.current % 60,
+        Math.floor(currentValue / 3600),
+        Math.floor((currentValue % 3600) / 60),
+        currentValue % 60,
       ];
 
       setHours(intToStringFormat(h));
@@ -59,13 +60,12 @@ const Timer: React.FC<ITimerProps> = ({
 
   const onReset = () => {
     clearInterval(interval.current);
-    count.current = INITAL_TIME_NUM;
 
     setHours(intToStringFormat(HH));
     setMinutes(intToStringFormat(MM));
     setSeconds(intToStringFormat(SS));
-
     setIsStart(false);
+    count.current = INITAL_TIME_NUM;
   };
 
   const onStop = () => {
@@ -74,8 +74,10 @@ const Timer: React.FC<ITimerProps> = ({
   };
 
   const recalculateRefNumber = () => {
-    const newCurrentTime = +hours * 60 * 60 + +minutes * 60 + +seconds;
-    count.current = newCurrentTime;
+    const [h, m, s] = [+hours * 60 * 60, +minutes * 60, +seconds];
+    const calculatedToSeconds = Math.abs(h + m + s);
+
+    count.current = calculatedToSeconds;
   };
 
   const onChange = (
@@ -89,8 +91,6 @@ const Timer: React.FC<ITimerProps> = ({
     if (type === 'hours') setHours(formatedNumber);
     if (type === 'minutes') setMinutes(formatedNumber);
     if (type === 'seconds') setSeconds(formatedNumber);
-
-    recalculateRefNumber();
   };
 
   useEffect(() => {
@@ -98,15 +98,16 @@ const Timer: React.FC<ITimerProps> = ({
   }, []);
 
   useEffect(() => {
-    if (count.current <= 0) {
-      endCallback && endCallback();
+    if (count.current < 0) {
       onReset();
       clearInterval(interval.current);
+      if (endCallback) endCallback();
     }
-  }, [seconds]);
+    recalculateRefNumber();
+  }, [hours, minutes, seconds]);
 
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <input
         type="number"
         value={hours}
@@ -120,6 +121,7 @@ const Timer: React.FC<ITimerProps> = ({
         name="minutes"
         min={0}
         max={59}
+        maxLength={2}
         type="number"
         onChange={(e) => onChange(+e.target.value, 'minutes')}
         value={minutes}
@@ -131,6 +133,7 @@ const Timer: React.FC<ITimerProps> = ({
         name="seconds"
         min={0}
         max={59}
+        maxLength={2}
         type="number"
         onChange={(e) => onChange(+e.target.value, 'seconds')}
         value={seconds}

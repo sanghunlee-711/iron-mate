@@ -14,6 +14,10 @@ const SIDE_BAR_MAP = [
     to: '/train',
     name: 'Train',
   },
+  {
+    to: '/manage',
+    name: 'Manage',
+  },
 ];
 
 interface ISidebarProps {

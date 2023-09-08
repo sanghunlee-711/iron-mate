@@ -3,6 +3,7 @@
 import React from 'react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import { TTrainData } from '../train/types/table';
 
 const css = `
   .rdp {
@@ -41,12 +42,16 @@ const css = `
 `;
 
 interface ICalendarProps {
+  data?: TTrainData[];
   date: Date;
   handleDate: (date: Date) => void;
 }
 
-const Calendar: React.FC<ICalendarProps> = ({ date, handleDate }) => {
+const checkedStyle = { color: 'pink' };
+
+const Calendar: React.FC<ICalendarProps> = ({ data, date, handleDate }) => {
   const isExpanded = globalThis && globalThis?.innerWidth >= 512;
+  const checkedDate = data?.map((el) => new Date(el.date));
 
   return (
     <div className="max-w-full overflow-x-scroll">
@@ -56,6 +61,8 @@ const Calendar: React.FC<ICalendarProps> = ({ date, handleDate }) => {
         mode="single"
         selected={date}
         onSelect={(day: Date | undefined) => handleDate(day || new Date())}
+        modifiers={{ checked: checkedDate || [] }}
+        modifiersStyles={{ checked: checkedStyle }}
         // footer={footer}
         showOutsideDays
         fixedWeeks

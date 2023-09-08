@@ -1,7 +1,7 @@
 export interface ITrain {
   target: string;
   name: string;
-  weight: string;
+  weight: number;
   id?: string;
   set: number;
   reps: number;
@@ -16,3 +16,5 @@ export interface IInformationFormatMap {
   name: string;
   id: keyof ITrain;
 }
+
+export type TTrainData = { date: string; data: ITrain[] };

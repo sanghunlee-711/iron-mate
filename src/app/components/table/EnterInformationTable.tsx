@@ -20,6 +20,8 @@ const EnterInformationTable: React.FC<IFormProps> = ({
       <tbody>
         {INFORMATION_FORMAT_MAP.map(({ name, id }) => {
           const uniqueId = `trainTable.${Number(identifier)}.${id}` as const;
+          const NUMBER_TYPE_KEY_LIST = ['weight', 'reps', 'set'];
+          const isNumberType = NUMBER_TYPE_KEY_LIST.includes(id);
 
           return (
             <tr key={uniqueId} className="border border-slate-300">
@@ -29,7 +31,7 @@ const EnterInformationTable: React.FC<IFormProps> = ({
               <td className="table-base">
                 <input
                   {...register(uniqueId)}
-                  type="text"
+                  type={isNumberType ? 'number' : 'text'}
                   id={uniqueId}
                   className="w-full text-sm"
                 />
