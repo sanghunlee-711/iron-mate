@@ -47,10 +47,11 @@ interface ICalendarProps {
   handleDate: (date: Date) => void;
 }
 
+const checkedStyle = { color: 'pink' };
+
 const Calendar: React.FC<ICalendarProps> = ({ data, date, handleDate }) => {
   const isExpanded = globalThis && globalThis?.innerWidth >= 512;
   const checkedDate = data?.map((el) => new Date(el.date));
-  const checkedStyle = { color: 'red' };
 
   return (
     <div className="max-w-full overflow-x-scroll">

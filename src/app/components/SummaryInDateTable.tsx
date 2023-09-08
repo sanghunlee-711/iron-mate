@@ -5,21 +5,7 @@ import React from 'react';
 import { ITrain, TTrainData } from '../train/types/table';
 import { pushDateFormat } from '../utils/format';
 import { extractSameTarget } from '../utils/summary';
-
-const MOCK_SUMMARY_TABLE = [
-  {
-    id: 1,
-    exserciseName: '벤치프레스',
-    sets: 3,
-    remark: '너무 무거웠음',
-  },
-  {
-    id: 2,
-    exserciseName: '풀업',
-    sets: 2,
-    remark: '비교적 수월',
-  },
-];
+import Button from './buttons/Button';
 
 interface ISummaryInDateTableProps {
   date: Date;
@@ -63,13 +49,12 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
   return (
     <>
       <div className="flex align-middle justify-between ">
-        <h1 className="font-bold my-3 text-lg">Summary of {formatedDate}</h1>
-        <button
-          onClick={() => route.push(`/train/${pushDateFormat(date)}`)}
-          type="button"
-        >
-          Detail
-        </button>
+        <div className="flex items-center justify-between w-screen my-3">
+          <h1 className="font-bold text-lg">Summary of {formatedDate}</h1>
+          <Button onClick={() => route.push(`/train/${pushDateFormat(date)}`)}>
+            Detail
+          </Button>
+        </div>
       </div>
       <table className="table-auto border-collapse border-8 border-slate-300 w-full	rounded-md overflow-hidden mt-2 border-soild ring-1 ring-slate-200">
         <thead>

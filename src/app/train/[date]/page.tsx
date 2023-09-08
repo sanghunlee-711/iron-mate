@@ -11,6 +11,7 @@ import DateInput from '../../components/input/DateInput';
 import { useParams, useRouter } from 'next/navigation';
 import { formatSaveDate, pushDateFormat } from '@/app/utils/format';
 import DataStorage from '@/app/utils/storage';
+import { checkPossibilityToSave } from '@/app/utils/validate';
 
 const Train = () => {
   const { date: dateParams } = useParams();
@@ -37,7 +38,7 @@ const Train = () => {
   const removeListWithId = (index: number) => {
     const isOverOneTable = fields.length > 1;
 
-    if (!isOverOneTable) return;
+    if (!isOverOneTable) return alert('마지막 카드 입니다!');
 
     remove(index);
   };
@@ -45,7 +46,13 @@ const Train = () => {
   const onSave = (data: TableForm) => {
     const currentCards = [...data?.trainTable];
 
+    //*Todo: id 업데이트 및 삭제 부분은 추후 다시 한번 고려해보자
     currentCards.forEach((el) => delete el['id']);
+
+    if (!checkPossibilityToSave(currentCards))
+      return alert(
+        '적절하지 않은 데이터 형태입니다. \n(타겟부위, 종목이름, 중량 > 0, 횟수 > 0, 세트 > 0를 모두 기재해주세요)'
+      );
 
     const originData = dataStorage.get('iron-mate-data') as TTrainData[];
 
@@ -118,8 +125,10 @@ const Train = () => {
             저장하기
           </Button>
         </div>
-        <div className="flex justify-end">
-          <div onClick={handleAddButton}>+</div>
+        <div className="flex justify-end mt-4">
+          <Button onClick={handleAddButton} type="button" size="s" isBorder>
+            +
+          </Button>
         </div>
         <ul className="bg-white mt-3 flex flex-col justify-center align-middle">
           {fields.map(({ id }, index) => {
@@ -129,18 +138,20 @@ const Train = () => {
                 className="border border-slate-300 p-3 rounded-md mb-3"
               >
                 <div className="flex justify-between align-middle">
-                  <div>
-                    <Timer
-                      startCallback={() => console.log('광고 시작')}
-                      endCallback={() => updateWorkoutSets(index)}
-                    />
-                  </div>
-                  <div
+                  <Timer
+                    startCallback={() => console.log('광고 시작')}
+                    endCallback={() => updateWorkoutSets(index)}
+                  />
+
+                  <Button
                     className="rounded-full	border inline-flex items-center justify-center w-6 h-6"
                     onClick={() => removeListWithId(index)}
+                    type="button"
+                    size="s"
+                    isBorder
                   >
                     x
-                  </div>
+                  </Button>
                 </div>
                 <EnterInformationTable
                   register={register}

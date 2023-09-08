@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { INFORMATION_FORMAT_MAP } from '../constants/table';
-import { ITrain, TTrainData } from '../train/types/table';
+import { TTrainData } from '../train/types/table';
 import { Excel } from '../utils/excel';
 import DataStorage from '../utils/storage';
 import { checkWithTargetList } from '../utils/validate';
@@ -57,11 +57,29 @@ const Manage = () => {
 
   return (
     <div>
-      <label htmlFor="uploadExcel">
-        액셀 업로드 하기
-        <input type="file" id="uploadExcel" onChange={(e) => uploadFile(e)} />
-      </label>
-      <button onClick={saveAsExcel}>데이터 액셀로 저장하기</button>
+      <h1 className="text-lg font-bold mb-4">데이터 관리하기</h1>
+      <div className="flex flex-col">
+        <label
+          htmlFor="uploadExcel"
+          className="mb-4 border-2 border-slate-200	rounded text-slate-400	 text-center py-2 px-4"
+        >
+          액셀 데이터 적용하기
+          <input
+            type="file"
+            id="uploadExcel"
+            onChange={(e) => uploadFile(e)}
+            className=" invisible h-0 w-0"
+          />
+        </label>
+        <label className="mb-4 border-2 border-slate-200	rounded text-slate-400 text-center py-2 px-4">
+          데이터 액셀로 저장하기
+          <input
+            type="button"
+            onClick={saveAsExcel}
+            className=" invisible h-0 w-0"
+          />
+        </label>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 export interface ITrain {
   target: string;
   name: string;
-  weight: string;
+  weight: number;
   id?: string;
   set: number;
   reps: number;

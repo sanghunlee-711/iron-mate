@@ -30,7 +30,7 @@ export const INFORMATION_FORMAT_MAP: IInformationFormatMap[] = [
 export const BASE_TABLE_FORM = {
   target: '',
   name: '',
-  weight: '',
+  weight: 0,
   id: '',
   set: 0,
   reps: 0,
