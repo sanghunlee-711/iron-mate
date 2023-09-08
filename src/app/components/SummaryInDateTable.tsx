@@ -76,7 +76,7 @@ const SummaryInDateTable: React.FC<ISummaryInDateTableProps> = ({
           <tr className="border border-slate-300">
             <th className="table-base">Exercise</th>
             <th className="table-base">Sets</th>
-            <th className="table-base">Remark</th>
+            <th className="table-base">Reps</th>
           </tr>
         </thead>
         <tbody className="max-h-28 overflow-y-scroll">

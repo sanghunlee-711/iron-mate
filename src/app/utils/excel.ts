@@ -1,13 +1,10 @@
+import { TTrainData } from '../train/types/table';
 import { intToStringFormat } from './format';
 
 const xlsx = require('xlsx');
 
-export class Excel<TData> {
-  data;
-
-  constructor(data?: TData[]) {
-    this.data = data;
-  }
+export class Excel {
+  constructor() {}
 
   formatData = <TFormatData>(
     unFormeddata: TFormatData[],
@@ -39,7 +36,7 @@ export class Excel<TData> {
     return rawData;
   };
 
-  makeFromData = () => {
+  makeFromData = (data: TTrainData[]) => {
     const today = new Date();
     const [year, month, date] = [
       today.getFullYear(),
@@ -52,12 +49,15 @@ export class Excel<TData> {
     )}`;
 
     const file = xlsx.utils.book_new();
-    const trains = xlsx.utils.json_to_sheet(this.data, {
-      // headers: this.headers,
-      skipHeader: false,
-    });
 
-    xlsx.utils.book_append_sheet(file, trains, formatDate);
+    data.forEach((el) => {
+      const ws = xlsx.utils.json_to_sheet(el.data, {
+        // headers: this.headers,
+        skipHeader: false,
+      });
+      console.log('foremdData', ws, el.data, el.date);
+      xlsx.utils.book_append_sheet(file, ws, el.date);
+    });
 
     return xlsx.writeFile(file, `iron-mate-${formatDate}.xlsx`);
   };

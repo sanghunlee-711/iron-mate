@@ -16,8 +16,6 @@ const Home = () => {
     setDate(newDate);
   };
 
-  console.log(data);
-
   return (
     <>
       <Calendar date={date} handleDate={handleDate} data={data} />

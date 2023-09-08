@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ITrain } from '../train/types/table';
+import { ITrain, TTrainData } from '../train/types/table';
 import { Excel } from '../utils/excel';
 import DataStorage from '../utils/storage';
 
@@ -26,16 +26,13 @@ const Manage = () => {
 
   const save = () => {
     // localStorage에 저장되어있는 데이터를 액셀로 추출해줌.
-    const storageData = dataStorage.get('iron-mate-data');
+    const storageData = dataStorage.get('iron-mate-data') as TTrainData[];
 
     if (!storageData) alert('브라우저에 데이터가 없습니다.');
 
-    const datas = JSON.parse(storageData as string) || [];
-
-    datas.forEach((el: any) => delete el['id']);
-
-    const excel = new Excel<ITrain>(datas);
-    excel.makeFromData();
+    console.log(storageData);
+    const excel = new Excel();
+    excel.makeFromData(storageData);
   };
 
   return (

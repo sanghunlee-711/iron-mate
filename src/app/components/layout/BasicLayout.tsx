@@ -23,9 +23,9 @@ const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       <Sidebar isVisible={isToggle} handleClicked={handleToggle} />
       <main className="main_container">{children}</main>
       <footer className="footer_container text-base font-bold	">
-        A Project by{' '}
-        <Link href="https://www.cloud-sanghun.com/">Cloud Lee</Link> | From The
-        Folks
+        A project by{' '}
+        <Link href="https://www.cloud-sanghun.com/">sanghun lee</Link> | From
+        The Folks
       </footer>
     </>
   );
