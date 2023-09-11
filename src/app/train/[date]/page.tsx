@@ -56,7 +56,12 @@ const Train = () => {
 
     const originData = dataStorage.get('iron-mate-data') as TTrainData[];
 
-    if (!originData) return dataStorage.set('iron-mate-data', currentCards);
+    if (!originData) {
+      // 이게 뭐람;
+      return dataStorage.set('iron-mate-data', [
+        { date: formatSaveDate(new Date()), data: currentCards },
+      ]);
+    }
 
     let isExistDayBefore = false;
     const updateData = originData.reduce((acc, curr, currIdx, originArr) => {
@@ -84,7 +89,7 @@ const Train = () => {
 
   const updateWorkoutSets = (itemIndex: number) => {
     const uniqueId = `trainTable.${Number(itemIndex)}.set` as const;
-    const currentSet = getValues(uniqueId) as string;
+    const currentSet = getValues(uniqueId) as unknown as string;
 
     setValue(uniqueId, (Number(currentSet) + 1) as never);
   };

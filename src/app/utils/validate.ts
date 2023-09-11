@@ -35,3 +35,14 @@ export const checkPossibilityToSave = (data: ITrain[]) => {
 
   return true;
 };
+
+export const checkIsTrainData = (data: any) => {};
+
+export const checkPossibilityToRender = (trainData: any) => {
+  console.log(trainData);
+  if (!trainData.length) return false;
+  if (!trainData.filter((el: any) => el?.data)?.length) return false;
+  if (!trainData.filter((el: any) => el?.date)?.length) return false;
+
+  return checkPossibilityToSave(trainData[0].data);
+};

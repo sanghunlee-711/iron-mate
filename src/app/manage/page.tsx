@@ -9,7 +9,7 @@ import { checkWithTargetList } from '../utils/validate';
 
 const Manage = () => {
   const dataStorage = new DataStorage();
-
+  const excel = new Excel();
   const validateUpload = (rawData: any) => {
     if (!rawData?.length) return false;
     if (!rawData[0]?.data) return false;
@@ -36,7 +36,6 @@ const Manage = () => {
       //데이터 대체할 것인지에 대한 여부를 물어봐야함.
     }
 
-    const excel = new Excel();
     const rawData = await excel.readFromFile(files[0]);
 
     if (!validateUpload(rawData)) {
@@ -49,10 +48,14 @@ const Manage = () => {
   const saveAsExcel = () => {
     const storageData = dataStorage.get('iron-mate-data') as TTrainData[];
 
-    if (!storageData) alert('브라우저에 데이터가 없습니다.');
+    if (!storageData) return alert('브라우저에 데이터가 없습니다.');
 
-    const excel = new Excel();
     excel.makeFromData(storageData);
+  };
+
+  const removeExcel = () => {
+    dataStorage.remove();
+    return alert('액셀 데이터 삭제가 완료 되었습니다.');
   };
 
   return (
@@ -61,7 +64,7 @@ const Manage = () => {
       <div className="flex flex-col">
         <label
           htmlFor="uploadExcel"
-          className="mb-4 border-2 border-slate-200	rounded text-slate-400	 text-center py-2 px-4"
+          className="mb-4 border-2 border-slate-200	rounded text-slate-400 text-center py-2 px-4"
         >
           액셀 데이터 적용하기
           <input
@@ -76,6 +79,14 @@ const Manage = () => {
           <input
             type="button"
             onClick={saveAsExcel}
+            className=" invisible h-0 w-0"
+          />
+        </label>
+        <label className="mb-4 border-2 border-slate-200	rounded text-slate-400 text-center py-2 px-4">
+          액셀 데이터 지우기
+          <input
+            type="button"
+            onClick={removeExcel}
             className=" invisible h-0 w-0"
           />
         </label>

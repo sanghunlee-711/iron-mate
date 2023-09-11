@@ -1,4 +1,5 @@
 import { IInformationFormatMap } from '../train/types/table';
+import { formatSaveDate } from '../utils/format';
 
 export const INFORMATION_FORMAT_MAP: IInformationFormatMap[] = [
   {
@@ -36,3 +37,17 @@ export const BASE_TABLE_FORM = {
   reps: 0,
   remark: '',
 };
+
+export const DEFAULT_EXCEL_DATA = [
+  {
+    data: {
+      name: 'N/A',
+      remark: 'N/A',
+      reps: 0,
+      set: 0,
+      target: 'N/A',
+      weight: 0,
+    },
+    date: formatSaveDate(new Date()),
+  },
+];
