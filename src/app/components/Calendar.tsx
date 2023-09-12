@@ -57,19 +57,18 @@ const Calendar: React.FC<ICalendarProps> = ({ data, date, handleDate }) => {
     <div className="max-w-full overflow-x-scroll">
       <style>{css}</style>
       <DayPicker
-        // cla
+        // footer={footer}
+        // weekStartsOn={1} // Tuesday as first day of the week
+        // firstWeekContainsDate={4} // Number the first week of the year from day 4
         mode="single"
         selected={date}
         onSelect={(day: Date | undefined) => handleDate(day || new Date())}
         modifiers={{ checked: checkedDate || [] }}
         modifiersStyles={{ checked: checkedStyle }}
-        // footer={footer}
         showOutsideDays
         fixedWeeks
         numberOfMonths={isExpanded ? 2 : 1}
         pagedNavigation
-        // weekStartsOn={1} // Tuesday as first day of the week
-        // firstWeekContainsDate={4} // Number the first week of the year from day 4
         showWeekNumber
         formatters={{
           formatWeekNumber: (weekNumber) => `W${weekNumber}`,

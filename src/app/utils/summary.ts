@@ -5,14 +5,15 @@ export const extractSameMonthData = (data: TTrainData[], pickDate: Date) => {
   const pickedYear = pickDate.getFullYear();
   const pickedMonth = pickDate.getMonth() + 1; // ex) 8월
   //1. 동일 월 데이터를 모두 모아야함.
+
   return data
-    .filter((el) => {
-      const [y, m, d] = el.date.split('-');
+    ?.filter((el) => {
+      const [y, m, d] = el?.date?.split('-');
 
       //이번 달 데이터만 모으기
       return m === intToStringFormat(pickedMonth) && `${pickedYear}` === y;
     })
-    .flatMap((el) => el.data);
+    .flatMap((el) => el?.data);
 };
 
 export const extractSameTarget = (trainData: ITrain[]) => {
@@ -47,7 +48,7 @@ type TSummarizeWithTarget = { target: string; sets: number; volumes: number };
 
 export const summarizeInMonth = (data: TTrainData[], pickDate: Date) => {
   //1. 동일 월 데이터를 모두 모아야함.
-
+  console.log('?@?@', data, pickDate);
   const sameMonthData = extractSameMonthData(data, pickDate);
 
   //2. 동일 부위별로만 데이터 모아야 함.
