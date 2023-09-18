@@ -131,8 +131,8 @@ const Train = () => {
           </Button>
         </div>
         <div className="flex justify-end mt-4">
-          <Button onClick={handleAddButton} type="button" size="s" isBorder>
-            +
+          <Button onClick={handleAddButton} type="button" size="m">
+            추가하기
           </Button>
         </div>
         <ul className="bg-white mt-3 flex flex-col justify-center align-middle">
@@ -153,9 +153,8 @@ const Train = () => {
                     onClick={() => removeListWithId(index)}
                     type="button"
                     size="s"
-                    isBorder
                   >
-                    x
+                    지우기
                   </Button>
                 </div>
                 <EnterInformationTable

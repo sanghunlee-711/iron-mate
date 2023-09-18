@@ -16,7 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const sizeMap = new Map<TButtonSize, string>([
-    ['s', 'py-2 px-2 w-8 h-8 min-w-fit min-h-fit text-xs'],
+    ['s', 'py-2 px-2 min-w-8 min-h-8 w-fit h-fit text-xs'],
     ['m', 'py-2 px-4 w-fit h-fit text-sm'],
     ['l', 'py-2 px-4 w-fit h-fit text-base'],
   ]);
