@@ -11,12 +11,10 @@ jobs: # 작동할 일
     defaults:
       run:
         working-directory: ../..
-    steps:
+    steps: # ec2 내 빌드 시 cpu딸림으로 인해 로컬 빌드 후 푸쉬하는 전략 선택
       - name: Move folder and pull remote repository contents
         run: |
           cd /home/ubuntu/iron-mate/
-          git pull origin main
-          yarn
           pm2 stop all
-          yarn build
+          git pull origin main
           pm2 restart all

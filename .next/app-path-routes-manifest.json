@@ -1,0 +1,9 @@
+{
+  "/page": "/",
+  "/_not-found": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/manage/page": "/manage",
+  "/train/page": "/train",
+  "/dynamic/[slug]/page": "/dynamic/[slug]",
+  "/train/[date]/page": "/train/[date]"
+}

@@ -1,0 +1,9 @@
+{
+  "/page": "app/page.js",
+  "/_not-found": "app/_not-found.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/manage/page": "app/manage/page.js",
+  "/train/page": "app/train/page.js",
+  "/dynamic/[slug]/page": "app/dynamic/[slug]/page.js",
+  "/train/[date]/page": "app/train/[date]/page.js"
+}

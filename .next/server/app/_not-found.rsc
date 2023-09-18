@@ -1,0 +1,7 @@
+1:HL["/_next/static/media/2aaf0723e720e8b9-s.p.woff2",{"as":"font","type":"font/woff2"}]
+2:HL["/_next/static/css/f691adb33162c0b9.css",{"as":"style"}]
+0:["Xo0UkQGTBHihGEYlrLXRu",[[["",{"children":["not-found",{}]},"$undefined","$undefined",true],"$L3",[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/f691adb33162c0b9.css","precedence":"next"}]],"$L4"]]]]
+5:I{"id":1171,"chunks":["685:static/chunks/685-074bd2004c74fe2c.js","352:static/chunks/352-889133b067dec8b9.js","185:static/chunks/app/layout-cee0c5172aa61924.js"],"name":"","async":false}
+6:I{"id":6685,"chunks":["685:static/chunks/685-074bd2004c74fe2c.js","160:static/chunks/app/not-found-0bc2c8d1553d4d8c.js"],"name":"","async":false}
+3:[["$","html",null,{"lang":"en","children":["$","body",null,{"className":"__className_20951f","suppressHydrationWarning":true,"children":["$","$L5",null,{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],false,[],["$","div",null,{"children":[["$","h2",null,{"children":"Not Found"}],["$","p",null,{"children":"추후에 디자인 추가 예정"}],["$","$L6",null,{"href":"/","children":"Return Home"}]]}]]}]}]}],null]
+4:[["$","meta","0",{"charSet":"utf-8"}],["$","title","1",{"children":"Iron mate"}],["$","meta","2",{"name":"description","content":"Optmize your weight lifting with your own data"}],["$","meta","3",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","link","4",{"rel":"icon","href":"/favicon.ico","type":"image/x-icon","sizes":"any"}],["$","meta","5",{"name":"next-size-adjust"}]]
