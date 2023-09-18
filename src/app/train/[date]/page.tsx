@@ -24,7 +24,7 @@ const Train = () => {
       },
     });
 
-  const { fields, append, prepend, remove, swap, update } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: 'trainTable',
   });

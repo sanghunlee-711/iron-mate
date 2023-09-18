@@ -10,7 +10,7 @@ describe('<Timer />', () => {
   const INITIAL_TIME = {
     hh: 0,
     mm: 0,
-    ss: 3,
+    ss: 2,
   };
 
   it('시작 버튼 클릭 전 초기 시간이 렌더 되는지', () => {
@@ -47,7 +47,7 @@ describe('<Timer />', () => {
 
     await userEvent.click($startBtn);
 
-    await act(async () => await sleep(INITIAL_TIME.ss * 1000));
+    await act(async () => await sleep((INITIAL_TIME.ss + 1) * 1000));
 
     const $hours = screen.getByLabelText('hours-input') as HTMLInputElement;
     const $minutes = screen.getByLabelText('minutes-input') as HTMLInputElement;

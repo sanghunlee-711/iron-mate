@@ -31,7 +31,9 @@ const EnterInformationTable: React.FC<IFormProps> = ({
               <td className="table-base">
                 <input
                   {...register(uniqueId)}
-                  type={isNumberType ? 'number' : 'text'}
+                  type={isNumberType ? 'tel' : 'text'}
+                  pattern="[0-9]*"
+                  min="1"
                   id={uniqueId}
                   className="w-full text-sm"
                 />

@@ -20,3 +20,7 @@
   text-align: center;
   padding: 20px;
 }
+
+.icon {
+  cursor: pointer;
+}
