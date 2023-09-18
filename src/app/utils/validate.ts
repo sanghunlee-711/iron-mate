@@ -22,14 +22,12 @@ export const checkWithTargetList = ({
 export const checkPossibilityToSave = (data: ITrain[]) => {
   for (let i = 0; i < data.length; i++) {
     const curr = data[i];
-
     const isPossible =
       curr.name &&
       curr.target &&
       Number(curr.set) > 0 &&
       Number(curr.reps) > 0 &&
       Number(curr.weight) > 0;
-
     if (!isPossible) return false;
   }
 
