@@ -22,14 +22,14 @@ export const checkWithTargetList = ({
 export const checkPossibilityToSave = (data: ITrain[]) => {
   for (let i = 0; i < data.length; i++) {
     const curr = data[i];
-    console.log(curr);
+
     const isPossible =
       curr.name &&
       curr.target &&
       Number(curr.set) > 0 &&
       Number(curr.reps) > 0 &&
       Number(curr.weight) > 0;
-    console.log({ isPossible });
+
     if (!isPossible) return false;
   }
 
@@ -39,7 +39,6 @@ export const checkPossibilityToSave = (data: ITrain[]) => {
 export const checkIsTrainData = (data: any) => {};
 
 export const checkPossibilityToRender = (trainData: any) => {
-  console.log(trainData);
   if (!trainData.length) return false;
   if (!trainData.filter((el: any) => el?.data)?.length) return false;
   if (!trainData.filter((el: any) => el?.date)?.length) return false;

@@ -46,7 +46,7 @@ export class Excel {
         // headers: this.headers,
         skipHeader: false,
       });
-      console.log('foremdData', ws, el.data, el.date);
+
       xlsx.utils.book_append_sheet(file, ws, el.date);
     });
 
