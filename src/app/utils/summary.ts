@@ -47,11 +47,9 @@ export const extractSameTarget = (trainData: ITrain[]) => {
 type TSummarizeWithTarget = { target: string; sets: number; volumes: number };
 
 export const summarizeInMonth = (data: TTrainData[], pickDate: Date) => {
-  //1. 동일 월 데이터를 모두 모아야함.
-  console.log('?@?@', data, pickDate);
+  //1. 동일 월 데이터를 모두 모은다.
   const sameMonthData = extractSameMonthData(data, pickDate);
 
-  //2. 동일 부위별로만 데이터 모아야 함.
-
+  //2. 동일 부위별로만 데이터 모은다.
   return extractSameTarget(sameMonthData);
 };
