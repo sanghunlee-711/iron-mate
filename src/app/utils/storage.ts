@@ -34,5 +34,14 @@ class DataStorage {
       console.error(e);
     }
   }
+  remove(key: string = 'iron-mate-data') {
+    try {
+      const data = localStorage.removeItem(key);
+      return data;
+    } catch (e) {
+      alert('브라우저 내 데이터 삭제하기에 실패하였습니다.');
+      console.error(e);
+    }
+  }
 }
 export default DataStorage;
