@@ -9,8 +9,8 @@
 /coverage
 
 # next.js > ec2 내 빌드 시 cpu딸림으로 인해 로컬 빌드 후 푸쉬하는 전략 선택
-# /.next/
-# /out/
+/.next/
+/out/
 
 # production
 /build
