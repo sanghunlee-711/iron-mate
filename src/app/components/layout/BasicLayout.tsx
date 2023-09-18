@@ -6,8 +6,8 @@ import Sidebar from '../SideBar';
 import './BasicLayout.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useOutsideClick } from '@/app/hooks/useTest';
 import { useRouter } from 'next/navigation';
+import { useOutsideClick } from '@/app/hooks/useOutsideClick';
 
 const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const route = useRouter();
