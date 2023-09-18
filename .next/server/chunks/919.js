@@ -138,7 +138,7 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
 
 /***/ }),
 
-/***/ 43332:
+/***/ 74937:
 /***/ ((module, exports, __webpack_require__) => {
 
 
@@ -8141,7 +8141,7 @@ function _interop_require_wildcard(obj, nodeInterop) {
 const { requestAsyncStorage } = __webpack_require__(1715);
 const { staticGenerationAsyncStorage } = __webpack_require__(13539);
 const serverHooks = __webpack_require__(81651);
-const headerHooks = __webpack_require__(43332);
+const headerHooks = __webpack_require__(74937);
 const { staticGenerationBailout } = __webpack_require__(46164);
 const { actionAsyncStorage } = __webpack_require__(34876);
 class AppRouteRouteModule extends _routemodule.RouteModule {

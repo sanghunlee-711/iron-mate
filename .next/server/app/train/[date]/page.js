@@ -433,7 +433,7 @@ const EnterInformationTable = ({ register, identifier })=>{
                             children: /*#__PURE__*/ jsx_runtime_.jsx("input", {
                                 ...register(uniqueId),
                                 type: isNumberType ? "tel" : "text",
-                                pattern: "[0-9]*",
+                                // pattern={isNumberType ? '[0-9]*' : ''}
                                 min: "1",
                                 id: uniqueId,
                                 className: "w-full text-sm"
