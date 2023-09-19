@@ -1,4 +1,4 @@
-// File: /Users/cloudlee/Desktop/Dev/iron-mate/src/app/manage/page.tsx
+// File: /Users/sanghunlee/Desktop/dev/iron-mate/src/app/manage/page.tsx
 import * as entry from '../../../../src/app/manage/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

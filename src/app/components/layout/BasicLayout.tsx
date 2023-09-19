@@ -1,5 +1,6 @@
 'use client';
 
+import getConfig from 'next/config';
 import React, { PropsWithChildren } from 'react';
 import BurgerButton from '../buttons/BurgerButton';
 import Sidebar from '../SideBar';
@@ -8,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useOutsideClick } from '@/app/hooks/useOutsideClick';
+import packageJson from 'root/package.json';
 
 const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const route = useRouter();
@@ -39,9 +41,12 @@ const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       </div>
       <main className="main_container">{children}</main>
       <footer className="footer_container text-base font-bold	">
-        A project by{' '}
-        <Link href="https://www.cloud-sanghun.com/">sanghun lee</Link> | From
-        The Folks
+        <p className=" text-ellipsis whitespace-pre">
+          A project by
+          <Link href="https://www.cloud-sanghun.com/">sanghun lee</Link>
+          {/* {'\n'} From The Folks */}
+          {'\n'}V{packageJson?.version}
+        </p>
       </footer>
     </>
   );
