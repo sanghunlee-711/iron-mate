@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { BASE_TABLE_FORM } from '../constants/table';
-import { TableForm, TTrainData } from '../train/types/table';
+import { ITrain, TableForm, TTrainData } from '../train/types/table';
 import { formatSaveDate, pushDateFormat } from '../utils/format';
 import DataStorage from '../utils/storage';
 import { checkPossibilityToSave } from '../utils/validate';
@@ -26,11 +26,11 @@ const useTrain = () => {
 
   const dataStorage = new DataStorage();
 
-  const handleAddButton = () => {
+  const addListCard = () => {
     append(BASE_TABLE_FORM);
   };
 
-  const removeListWithId = (index: number) => {
+  const removeListCardWithId = (index: number) => {
     const isOverOneTable = fields.length > 1;
 
     if (!isOverOneTable) return alert('마지막 카드 입니다!');
@@ -82,7 +82,19 @@ const useTrain = () => {
     return dataStorage.set('iron-mate-data', saveData);
   };
 
+  const updateTableValue = (itemIndex: number, type: keyof ITrain) => {
+    if (fields.length - 1 < itemIndex) return;
+
+    const uniqueId = `trainTable.${Number(itemIndex)}.${type}` as const;
+    const currentSet = getValues(uniqueId) as unknown as string;
+
+    setValue(uniqueId, (Number(currentSet) + 1) as never);
+  };
+
   const updateWorkoutSets = (itemIndex: number) => {
+    //*TODO: itemIndex가 전체 인덱스 범위에 없는 경우 에러처리 필요.
+    // if (fields.length - 1 < itemIndex) return;
+
     const uniqueId = `trainTable.${Number(itemIndex)}.set` as const;
     const currentSet = getValues(uniqueId) as unknown as string;
 
@@ -121,9 +133,9 @@ const useTrain = () => {
     register,
     calendarDate,
     handleDate,
-    handleAddButton,
+    addListCard,
+    removeListCardWithId,
     updateWorkoutSets,
-    removeListWithId,
     handleSubmit,
     onSave,
   };

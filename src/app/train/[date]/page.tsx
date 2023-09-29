@@ -20,9 +20,9 @@ const Train = () => {
     register,
     calendarDate,
     handleDate,
-    handleAddButton,
+    addListCard,
+    removeListCardWithId,
     updateWorkoutSets,
-    removeListWithId,
     handleSubmit,
     onSave,
   } = useTrain();
@@ -37,7 +37,7 @@ const Train = () => {
           </Button>
         </div>
         <div className="flex justify-end mt-4">
-          <Button onClick={handleAddButton} type="button" size="m">
+          <Button onClick={addListCard} type="button" size="m">
             추가하기
           </Button>
         </div>
@@ -50,13 +50,15 @@ const Train = () => {
               >
                 <div className="flex justify-between align-middle">
                   <Timer
-                    startCallback={() => console.log('광고 시작')}
-                    endCallback={() => updateWorkoutSets(index)}
+                    startCallback={() => {
+                      console.log('광고 시작');
+                      updateWorkoutSets(index);
+                    }}
                   />
 
                   <Button
                     className="rounded-full	border inline-flex items-center justify-center w-6 h-6"
-                    onClick={() => removeListWithId(index)}
+                    onClick={() => removeListCardWithId(index)}
                     type="button"
                     size="s"
                   >
