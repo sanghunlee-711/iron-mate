@@ -12,9 +12,6 @@ jest.mock('next/navigation', () => ({
       date: TEST_INITIAL_DATE,
     };
   },
-}));
-
-jest.mock('next/router', () => ({
   useRouter: () => {
     return {
       replace: jest.fn,
@@ -22,8 +19,11 @@ jest.mock('next/router', () => ({
   },
 }));
 
-const useRouter = jest.spyOn(require('next/router'), 'useRouter');
 const useParams = jest.spyOn(require('next/navigation'), 'useParams');
+
+afterAll(() => {
+  jest.clearAllMocks();
+});
 
 describe('useTrain', () => {
   const setup = () => {
