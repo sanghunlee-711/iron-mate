@@ -1,10 +1,11 @@
+import { ICustomAlert } from '../interfaces/alert';
 import CustomAlert from './alert';
 
 class DataStorage {
-  customAlert;
+  customAlert: ICustomAlert;
 
-  constructor() {
-    this.customAlert = new CustomAlert();
+  constructor(customAlert = new CustomAlert()) {
+    this.customAlert = customAlert;
   }
 
   set(key: string = 'iron-mate-data', data: any) {
