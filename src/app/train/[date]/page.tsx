@@ -10,7 +10,7 @@ import { TableForm, TTrainData } from '../types/table';
 import DateInput from '../../components/input/DateInput';
 import { useParams, useRouter } from 'next/navigation';
 import { formatSaveDate, pushDateFormat } from '@/app/utils/format';
-import DataStorage from '@/app/utils/storage';
+import DataStorage from '@/app/class/storage';
 import { checkPossibilityToSave } from '@/app/utils/validate';
 import useTrain from '@/app/hooks/useTrain';
 

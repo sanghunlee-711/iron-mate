@@ -5,7 +5,7 @@ import Calendar from '../components/Calendar';
 import SummaryInDateTable from '../components/SummaryInDateTable';
 import SummaryInMonth from '../components/SummaryInMonth';
 import { TTrainData } from '../train/types/table';
-import DataStorage from '../utils/storage';
+import DataStorage from '../class/storage';
 import { checkPossibilityToRender } from '../utils/validate';
 import Button from '../components/buttons/Button';
 import { useRouter } from 'next/navigation';

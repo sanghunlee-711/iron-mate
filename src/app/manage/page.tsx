@@ -4,7 +4,7 @@ import React from 'react';
 import { INFORMATION_FORMAT_MAP } from '../constants/table';
 import { TTrainData } from '../train/types/table';
 import { Excel } from '../utils/excel';
-import DataStorage from '../utils/storage';
+import DataStorage from '../class/storage';
 import { checkWithTargetList } from '../utils/validate';
 
 const Manage = () => {

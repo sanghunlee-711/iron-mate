@@ -1,4 +1,4 @@
-import CustomAlert from './alert';
+import CustomAlert from '../utils/alert';
 
 class DataStorage {
   customAlert;
@@ -9,6 +9,7 @@ class DataStorage {
 
   set(key: string = 'iron-mate-data', data: any) {
     try {
+      if (!data) return;
       global?.window?.localStorage.setItem(key, JSON.stringify(data));
       this.customAlert.toast('브라우저 내 데이터 저장이 완료되었습니다.');
     } catch (e) {
@@ -19,9 +20,11 @@ class DataStorage {
 
   get(key: string = 'iron-mate-data') {
     try {
-      const data = JSON.parse(
-        (global?.window?.localStorage.getItem(key) || '') as string
-      );
+      const keyData = global?.window?.localStorage.getItem(key) || '';
+
+      if (!keyData) return;
+
+      const data = JSON.parse(keyData as string);
       return data;
     } catch (e) {
       this.customAlert.toast('브라우저 내 데이터 가져오기에 실패하였습니다.');

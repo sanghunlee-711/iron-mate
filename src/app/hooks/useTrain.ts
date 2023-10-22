@@ -5,7 +5,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { BASE_TABLE_FORM } from '../constants/table';
 import { ITrain, TableForm, TTrainData } from '../train/types/table';
 import { formatSaveDate, pushDateFormat } from '../utils/format';
-import DataStorage from '../utils/storage';
+import DataStorage from '../class/storage';
 import { checkPossibilityToSave } from '../utils/validate';
 
 const useTrain = () => {
