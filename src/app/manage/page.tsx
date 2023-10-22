@@ -4,7 +4,7 @@ import React from 'react';
 import { INFORMATION_FORMAT_MAP } from '../constants/table';
 import { TTrainData } from '../train/types/table';
 import { Excel } from '../utils/excel';
-import DataStorage from '../utils/storage';
+import DataStorage from '../class/storage';
 import { checkWithTargetList } from '../utils/validate';
 
 const Manage = () => {
@@ -54,8 +54,7 @@ const Manage = () => {
   };
 
   const removeExcel = () => {
-    dataStorage.remove();
-    return alert('액셀 데이터 삭제가 완료 되었습니다.');
+    return dataStorage.remove();
   };
 
   return (
