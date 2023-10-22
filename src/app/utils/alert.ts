@@ -1,4 +1,6 @@
-export default class CustomAlert {
+import { IAlert } from '../interface/alert';
+
+export default class CustomAlert implements IAlert {
   constructor() {}
 
   toast = (message: string) => {

@@ -1,19 +1,23 @@
+import { STORAGE } from '../constants/message';
+import { IAlert } from '../interface/alert';
 import CustomAlert from '../utils/alert';
 
 class DataStorage {
-  customAlert;
+  customAlert: IAlert;
 
-  constructor() {
-    this.customAlert = new CustomAlert();
+  constructor(alertInstance: IAlert = new CustomAlert()) {
+    this.customAlert = alertInstance;
   }
 
   set(key: string = 'iron-mate-data', data: any) {
     try {
-      if (!data) return;
+      if (!data || !key) throw new Error(STORAGE.INCORRECT_DATA);
+
       global?.window?.localStorage.setItem(key, JSON.stringify(data));
-      this.customAlert.toast('브라우저 내 데이터 저장이 완료되었습니다.');
+      this.customAlert.toast(STORAGE.SAVE_SUCCESS);
     } catch (e) {
-      this.customAlert.toast('브라우저 내 데이터 저장에 실패하였습니다.');
+      const error = e as Error;
+      this.customAlert.toast(error.message || STORAGE.SAVE_FAILURE);
       console.error(e);
     }
   }
@@ -22,22 +26,22 @@ class DataStorage {
     try {
       const keyData = global?.window?.localStorage.getItem(key) || '';
 
-      if (!keyData) return;
+      if (!keyData) return null;
 
       const data = JSON.parse(keyData as string);
       return data;
     } catch (e) {
-      this.customAlert.toast('브라우저 내 데이터 가져오기에 실패하였습니다.');
+      this.customAlert.toast(STORAGE.GET_FAILURE);
       console.error(e);
     }
   }
 
   remove(key: string = 'iron-mate-data') {
     try {
-      const data = global?.window?.localStorage.removeItem(key);
-      return data;
+      global?.window?.localStorage.removeItem(key);
+      this.customAlert.toast(STORAGE.REMOVE_SUCCESS);
     } catch (e) {
-      this.customAlert.toast('브라우저 내 데이터 삭제하기에 실패하였습니다.');
+      this.customAlert.toast(STORAGE.REMOVE_FAILURE);
       console.error(e);
     }
   }

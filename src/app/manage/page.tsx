@@ -54,8 +54,7 @@ const Manage = () => {
   };
 
   const removeExcel = () => {
-    dataStorage.remove();
-    return alert('액셀 데이터 삭제가 완료 되었습니다.');
+    return dataStorage.remove();
   };
 
   return (
