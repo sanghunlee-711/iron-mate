@@ -1,15 +1,28 @@
 'use client';
 
 import React from 'react';
-import Calendar from '../components/Calendar';
-import SummaryInDateTable from '../components/SummaryInDateTable';
-import SummaryInMonth from '../components/SummaryInMonth';
 import { TTrainData } from '../train/types/table';
 import DataStorage from '../class/storage';
 import { checkPossibilityToRender } from '../utils/validate';
 import Button from '../components/buttons/Button';
 import { useRouter } from 'next/navigation';
 import { DEFAULT_EXCEL_DATA } from '../constants/table';
+import dynamic from 'next/dynamic';
+
+const Calendar = dynamic(() => import('../components/Calendar'), {
+  ssr: false,
+});
+
+const SummaryInDateTable = dynamic(
+  () => import('../components/SummaryInDateTable'),
+  {
+    ssr: false,
+  }
+);
+
+const SummaryInMonth = dynamic(() => import('../components/SummaryInMonth'), {
+  ssr: false,
+});
 
 const NotMachedForamt = ({
   handleDeleteExcel,

@@ -1,5 +1,4 @@
 import { useParams, useRouter } from 'next/navigation';
-// import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { BASE_TABLE_FORM } from '../constants/table';
@@ -82,15 +81,6 @@ const useTrain = () => {
     return dataStorage.set('iron-mate-data', saveData);
   };
 
-  const updateTableValue = (itemIndex: number, type: keyof ITrain) => {
-    if (fields.length - 1 < itemIndex) return;
-
-    const uniqueId = `trainTable.${Number(itemIndex)}.${type}` as const;
-    const currentSet = getValues(uniqueId) as unknown as string;
-
-    setValue(uniqueId, (Number(currentSet) + 1) as never);
-  };
-
   const updateWorkoutSets = (itemIndex: number) => {
     //*TODO: itemIndex가 전체 인덱스 범위에 없는 경우 에러처리 필요.
     // if (fields.length - 1 < itemIndex) return;
@@ -121,7 +111,6 @@ const useTrain = () => {
 
     if (dateParams) return setCalendarDate(dateParams as string);
     setCalendarDate(pushDateFormat(today));
-    // route.replace(`/train/${pushDateFormat(today)}`);
   }, [dateParams]);
 
   useEffect(() => {
