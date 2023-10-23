@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { formatTime, intToStringFormat } from '../utils/format';
+import worker_script from './worker-scripts.js';
 
 interface ITimerProps {
   isInitialStart?: boolean;
@@ -12,6 +13,8 @@ interface ITimerProps {
     ss: number;
   };
 }
+
+const timerWorker = new Worker(worker_script);
 
 const Timer: React.FC<ITimerProps> = ({
   isInitialStart = false,
@@ -93,8 +96,21 @@ const Timer: React.FC<ITimerProps> = ({
     if (type === 'seconds') setSeconds(formatedNumber);
   };
 
+  const startWebWorkerTimer = () => {
+    timerWorker.postMessage({ turn: 'on' });
+  };
+
+  const resetWebWorkerTimer = () => {
+    timerWorker.postMessage({ turn: 'off' });
+    onReset();
+  };
+
   useEffect(() => {
     if (isInitialStart) onStart();
+  }, []);
+
+  useEffect(() => {
+    timerWorker.onmessage = ({ data: { time } }) => {};
   }, []);
 
   useEffect(() => {
