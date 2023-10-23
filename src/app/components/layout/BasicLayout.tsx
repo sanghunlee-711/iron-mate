@@ -27,7 +27,7 @@ const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
         <BurgerButton isToggled={isToggle} handleToggle={handleToggle} />
         <Image
           className="icon"
-          src="/muscle-logo.svg"
+          src="/images/logo/muscle-logo.svg"
           alt="logo"
           width={42}
           height={36}

@@ -8,9 +8,11 @@
 # testing
 /coverage
 
-# next.js > ec2 내 빌드 시 cpu딸림으로 인해 로컬 빌드 후 푸쉬하는 전략 선택
+# next.js
 /.next/
 /out/
+
+
 
 # production
 /build
@@ -34,3 +36,17 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# yarn
+yarn-error.log
+
+# pwa
+**/public/precache.*.*.js
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/fallback-*.js
+**/public/precache.*.*.js.map
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
+**/public/fallback-*.js

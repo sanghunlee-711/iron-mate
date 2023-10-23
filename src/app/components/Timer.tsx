@@ -148,7 +148,12 @@ const Timer: React.FC<ITimerProps> = ({
           role="button"
           type="button"
         >
-          <Image src="/stop-icon.svg" alt="stop" width={12} height={12} />
+          <Image
+            src="/images/stop-icon.svg"
+            alt="stop"
+            width={12}
+            height={12}
+          />
         </button>
       ) : (
         <button
@@ -158,7 +163,12 @@ const Timer: React.FC<ITimerProps> = ({
           role="button"
           type="button"
         >
-          <Image src="/start-icon.svg" alt="start" width={12} height={12} />
+          <Image
+            src="/images/start-icon.svg"
+            alt="start"
+            width={12}
+            height={12}
+          />
         </button>
       )}
     </div>
