@@ -40,8 +40,13 @@ const BasicLayout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
       <main className="main_container">{children}</main>
       <footer className="footer_container text-base font-bold	">
         A project by{' '}
-        <Link href="https://www.cloud-sanghun.com/">sanghun lee</Link> | From
-        The Folks
+        <Link
+          href="https://www.cloud-sanghun.com/"
+          target="_blank"
+          className=" text-gray-300"
+        >
+          cloud sanghun lee
+        </Link>
       </footer>
     </>
   );

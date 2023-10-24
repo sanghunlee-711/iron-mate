@@ -4,7 +4,7 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "iron-mate",
+  "name": "쇠질메이트",
   "short_name": "iron-mate",
   "description": "webapp for do ironing",
   "icons": [

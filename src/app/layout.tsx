@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
       <link
         href="images/favicon-16x16.png"
         rel="icon"
@@ -32,7 +33,22 @@ export default function RootLayout({
         type="image/png"
         sizes="32x32"
       />
-      <link rel="apple-touch-icon" href="images/icon-192x192.png"></link>
+      <link rel="apple-touch-icon" href="images/icon-base.png" />
+      <link
+        rel="apple-touch-icon"
+        sizes="152x152"
+        href="images/icon-152x152.png"
+      />
+      <link
+        rel="apple-touch-icon"
+        sizes="167x167"
+        href="images/icon-167x167.png"
+      />
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="images/icon-180x180.png"
+      />
       <meta name="msapplication-TileColor" content="#fffff"></meta>
       <link
         href="images/splashscreens/iphone5_splash.png"
