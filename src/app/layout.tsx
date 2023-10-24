@@ -33,8 +33,8 @@ export default function RootLayout({
         type="image/png"
         sizes="32x32"
       />
-      <link rel="apple-touch-icon" href="images/icon-base.png" />
-      <link
+      <link rel="apple-touch-icon" href="images/icon-bg-white.png" />
+      {/* <link
         rel="apple-touch-icon"
         sizes="152x152"
         href="images/icon-152x152.png"
@@ -48,7 +48,7 @@ export default function RootLayout({
         rel="apple-touch-icon"
         sizes="180x180"
         href="images/icon-180x180.png"
-      />
+      /> */}
       <meta name="msapplication-TileColor" content="#fffff"></meta>
       <link
         href="images/splashscreens/iphone5_splash.png"
