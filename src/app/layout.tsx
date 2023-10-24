@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
       <link
         href="images/favicon-16x16.png"
         rel="icon"
