@@ -1,7 +1,7 @@
 {
   "theme_color": "#fffff",
   "background_color": "#fffff",
-  "display": "standalone",
+  "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
   "name": "쇠질메이트",
