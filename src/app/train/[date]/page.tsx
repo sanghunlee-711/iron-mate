@@ -44,7 +44,6 @@ const Train = () => {
                 <div className="flex justify-between align-middle">
                   <Timer
                     startCallback={() => {
-                      console.log('광고 시작');
                       updateWorkoutSets(index);
                     }}
                   />
